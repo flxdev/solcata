@@ -1,1 +1,14 @@
-$blue: blue;
+@include font-face('baronneueblackitalic', "../fonts/baronneueblackitalic-webfont" ,null, null, ttf eot woff2 woff svg);
+@include font-face('baronneueblack', "../fonts/baronneueblack-webfont" ,null, null, ttf eot woff2 woff svg);
+@include font-face('baronneuebolditalic', "../fonts/baronneuebolditalic-webfont" ,null, null, ttf eot woff2 woff svg);
+@include font-face('baronneuebold', "../fonts/baronneuebold-webfont" ,null, null, ttf eot woff2 woff svg);
+@include font-face('baronneueitalic', "../fonts/baronneueitalic-webfont" ,null, null, ttf eot woff2 woff svg);
+@include font-face('baronneue', "../fonts/baronneue-webfont" ,null, null, ttf eot woff2 woff svg);
+
+
+$Baron: 'baronneue', $font-stack-helvetica;
+$BaronItalic: 'baronneueitalic', $font-stack-helvetica;
+$BaronBold: 'baronneuebold', $font-stack-helvetica;
+$BaronBoldItalic: 'baronneuebolditalic', $font-stack-helvetica;
+$BaronBlack: 'baronneueblack', $font-stack-helvetica;
+$BaronBlackItalic: 'baronneueblackitalic', $font-stack-helvetica;
