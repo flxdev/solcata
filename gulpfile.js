@@ -46,7 +46,7 @@ var path = {
         icons: 'src/img/icons/*.png',
         fonts: 'src/fonts/**/*.*'
     },
-    clean: './bitrix/templates/main'
+    clean: './bitrix/templates/main/'
 };
 
 var config = {
