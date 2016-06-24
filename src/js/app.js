@@ -1,3 +1,10 @@
+$(window).load(function(){
+	setTimeout(function(){
+		$('.viewport').addClass('load');
+		$('.pjax').addClass('complete');
+	}, 1000);
+});
+
 $(document).ready(function () {
 
 	function Menu(){
@@ -38,7 +45,9 @@ $(document).ready(function () {
 	function menuNumbers(){
 		var container = $('.navigation-layer'),
 			numbers = $('.navigation-numbers'),
+			list = $('.navigation-list'),
 			numbersItem = $('.navigation-items'),
+			numbersItemLength = +numbersItem.length,
 			active = container.find('.active'),
 			index = active.data('number'),
 			trigger = $('.navigation__trigger'),
@@ -46,18 +55,26 @@ $(document).ready(function () {
 			content = container.parents('.navigation-content'),
 			tl = new TimelineLite();
 
-		numbers.html(index);
+		for(var i = 0; i <= numbersItemLength - 1; i++) {
+			numbers.append('<div class="numb-item">0' + (i +1) + '</div>')
+		}
+
+		var activeIndex = list.find('.active').index();
+		numbers.children().eq(activeIndex).addClass('visible');
+
+
+
 
 		numbersItem.on('mouseenter', function(){
 			var _ = $(this),
-				index = _.data('number');
-			numbers.html(index);
+				index = _.index();
+			numbers.children().eq(index).addClass('visible').siblings().removeClass('visible');
 		});
 
 		numbersItem.parent().on('mouseleave', function(){
 			var _ = $(this),
-				index = _.find('.active').data('number');
-			numbers.html(index);
+				index = _.find('.active').index();
+			numbers.children().eq(index).addClass('visible').siblings().removeClass('visible');
 		});
 
 		tl
@@ -80,4 +97,36 @@ $(document).ready(function () {
 		});
 
 	} menuNumbers();
+
+	function Direction() {
+		$('.viewport').mousewheel(function(event) {
+			if(event.deltaY === 1) {
+				if($(this).hasClass("return")) return false
+				//console.log('up')
+			} else {
+				if($(this).hasClass("return")) return false
+				//console.log('down')
+			}
+			//$(this).addClass('return')
+		});
+	} Direction();
+
+
+	function swiperIndex(){
+		var video = $('.rotator-video').find('.swiper-container');
+		
+		var swiperVideo = new Swiper(video, {
+			pagination: '.rotator-video .pagination',
+			onInit: function(swiper) {				
+				setTimeout(function(){
+					initVideo = $(swiper).find('.swiper-slide-active').find('video')[0];
+					initVideo.play();
+				},100);
+			}
+		});
+		if($('.rotator-video .pagination span').length === 1) {
+			$('.rotator-video .pagination').css('display', 'none');
+		}
+	} swiperIndex();
+
 })

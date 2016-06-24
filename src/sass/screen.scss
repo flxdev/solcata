@@ -1,4 +1,5 @@
 @import "../../bower_components/normalize.css/normalize.css";
+@import "../../bower_components/Swiper/dist/css/swiper.css";
 @import "lib/base";
 
 html {
@@ -48,7 +49,7 @@ a {
 	text-decoration: none;
 }
 .viewport {
-	@include x-rem(padding, 20px 0 20px 100px);
+	@include x-rem(padding, 20px 0 20px 50px);
 	position: relative;
 	height: 100%;
 }
@@ -59,6 +60,8 @@ a {
 	top: 40px;
 	right: 20px;
 	z-index: 110;
+	opacity: 0;
+	transition: opacity 1s linear;
 	.navigation__trigger {
 		background-color: $bordeaux;
 		width: 100%;
@@ -114,6 +117,7 @@ a {
 		right: 0;
 		z-index: 110;
 		transition: width 0.3s $bizer;
+		overflow: hidden;
 	}
 	.navigation-layer {
 		@include x-rem(width, 540px);
@@ -133,8 +137,9 @@ a {
 				display: inline-block;
 				width: 100%;
 				span {
+					display: inline-block;
 					position: relative;
-					@include x-rem(padding, 6px 0);
+					@include x-rem(padding, 8px 0);
 				}
 				&:first-child, &:nth-child(4) {
 					margin-bottom: 50px;
@@ -157,8 +162,229 @@ a {
 		}
 		.navigation-numbers {
 			position: absolute;
-			bottom: 0;
-			left: 0;
+			@include x-rem(bottom, -60px);
+			@include x-rem(left, -100px);
+			.numb-item {
+				visibility: hidden;
+				opacity: 0;
+				transition: opacity 0.4s linear 0.1s, visibility 0.4s linear 0.1s;
+				position: absolute;
+				font-family: $GaramondProItalic;
+				@include x-rem(font-size, 500px);
+				@include x-rem(line-height, 350px);
+				bottom: 0;
+				left: 0;
+				color: $number;
+				&.visible {
+					opacity: 1;
+					visibility: visible;
+					transition-delay: 0s;
+				}
+			}
 		}
 	}
+}
+.logo {
+	@include x-rem(width, 187px);
+	@include x-rem(height, 25px);
+	position: fixed;
+	z-index: 10;
+	background-image: url(../img/icons/logo.png);
+	background-size: cover;
+	@include x-rem(left, 50px);
+	@include x-rem(top, 51px);
+	opacity: 0;
+	transition: opacity 1s linear;
+	z-index: 15;
+}
+.language {
+	position: fixed;
+	@include x-rem(left, 350px);
+	@include x-rem(top, 55px);
+	opacity: 0;
+	transition: opacity 1s linear;
+	z-index: 15;
+	.language-item {
+		font-family: $GaramondProBoldItalic;
+		@include x-rem(font-size, 16px);
+		color: $bordeaux;
+		display: inline-block;
+		vertical-align: middle;
+		&.active {
+			font-family: $GaramondPro;
+		}
+	}
+	span {
+		font-family: $GaramondPro;
+		@include x-rem(font-size, 16px);
+		color: $bordeaux;
+		cursor: default;
+		pointer-events: none;
+		user-select: none;
+		display: inline-block;
+		vertical-align: middle;
+	}
+
+}
+.developers {
+	position: fixed;
+	transform: rotate(270deg);
+	transform-origin: left;
+	@include x-rem(bottom, 50px);
+	@include x-rem(right, 4px);
+	width: 10px;
+	z-index: 15;
+	.developers-inner {
+		position: absolute;
+		bottom: 0;
+		width: 150px;
+		transform: translateX(30%);
+		opacity: 0;
+		transition: opacity 1s linear, transform 1s linear;
+		a {
+			display: block;
+			font-family: $GaramondPro;
+			@include x-rem(font-size, 16px);
+			color: $bordeaux;
+			span {
+				font-family: $GaramondProBoldItalic;
+			}
+		}
+	}
+}
+.page-navigation {
+	position: fixed;
+	@include x-rem(bottom, 45px);
+	@include x-rem(left, 50px);
+	z-index: 112;
+	transform: translateY(120%);
+	opacity: 0;
+	transition: opacity 1s linear 0.7s, transform 1s linear 0.7s;
+	z-index: 15;
+	.pager {
+		.pager__item {
+			@include x-rem(width, 45px);
+			@include x-rem(height, 45px);
+			display: block;
+			margin: 5px 0;
+			&.pager__item-top {
+				background-image: url(../img/svg/ChevronUpCircle.svg);
+			}
+			&.pager__item-bottom {
+				background-image: url(../img/svg/ChevronDownCircle.svg);
+			}
+			&.inactive {
+				opacity: 0.3;
+				user-select: none;
+				pointer-events: none;
+			}
+		}
+	}
+}
+.requisites {
+	position: fixed;
+	@include x-rem(left, 350px);
+	@include x-rem(bottom, 43px);
+	transform: translateY(-30%);
+	opacity: 0;
+	transition: opacity 1s linear 0s, transform 1s linear 0s;
+	z-index: 15;
+	.requisites-inner {
+		p {
+			font-family: $GaramondPro;
+			@include x-rem(font-size, 16px);
+			color: $bordeaux;
+			letter-spacing: 0.7px;
+			padding-bottom: 2px;
+			strong, a {
+				font-family: $GaramondProBold;
+				font-weight: normal;
+			}
+		}
+		a {
+			font-family: $GaramondProBold;
+			font-weight: normal;
+			@include x-rem(font-size, 16px);
+			color: $bordeaux;
+		}
+	}
+}
+.load {
+	.logo, .navigation, .language {
+		opacity: 1;
+	}
+	.page-navigation, .requisites {
+		opacity: 1;
+		transform: none;
+	}
+	.developers {
+		.developers-inner {
+			opacity: 1;
+			transform: none;
+		}
+	}
+}
+.pjax {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	transition: opacity 1s linear;
+	&.complete {
+		opacity: 1;
+		.rotator {
+			.rotator-video {
+				&::after {
+					width: 0;
+				}
+			}
+		}
+	}
+	.pjax-container {
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+}
+.rotator {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	.rotator-video {
+		right: 0;
+		height: 100%;
+		position: absolute;
+		left: 250px;
+		&::after {
+			content: '';
+			width: 40%;
+			transition: width 1s linear;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: $beige;
+			z-index: 15;
+		}
+		.rotator-video_item {
+			width: 100%;
+			height: 100%;
+			background-size: cover;
+		}
+		.swiper-container {
+			width: 100%;
+			height: 100%;
+		}
+	}
+}
+video {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	object-fit: cover;
 }

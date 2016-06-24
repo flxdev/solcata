@@ -7,8 +7,38 @@
 <body>
 <div class="viewport">
 	//= includes/header.html
+	<div class="pjax">
+		<div class="pjax-container">
+			<div class="rotator">
+				<div class="rotator-video">
+					<div class="swiper-container">
+						<div class="swiper-wrapper">
+							<div class="rotator-video_item swiper-slide" style="" data-video="1">
+								<video muted loop="loop" poster="img/desktop.jpg"><source src="video/1.mp4"  type='video/mp4'></video>
+							</div>
+							<div class="rotator-video_item swiper-slide" style="" data-video="2">
+								<video muted loop="loop" poster="img/desktop.jpg"><source src="video/2.mp4"  type='video/mp4'></video>
+							</div>
+							<div class="rotator-video_item swiper-slide" style="" data-video="3">
+								<video muted loop="loop" poster="img/desktop.jpg"><source src="video/3.mp4"  type='video/mp4'></video>
+							</div>
+						</div>
+					</div>
+					<div class="pagination"></div>
+				</div>
+			</div>
+		</div>
+	</div>
 	//= includes/footer.html
 	//= includes/menu.html
+	<div class="page-navigation">
+		<div class="page-navigation_container">
+			<div class="pager">
+				<a href="" class="pager__item pager__item-top inactive"></a>
+				<a href="" class="pager__item pager__item-bottom"></a>
+			</div>
+		</div>
+	</div>
 </div>
 </body>
 </html>

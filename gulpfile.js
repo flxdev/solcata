@@ -24,7 +24,8 @@ var path = {
         img: 'bitrix/templates/main/img/',
         svg: 'bitrix/templates/main/img/svg',
         icons: 'bitrix/templates/main/img/icons',
-        fonts: 'bitrix/templates/main/fonts/'
+        fonts: 'bitrix/templates/main/fonts/',
+        video: 'bitrix/templates/main/video/'
     },
     src: {
         html: 'src/*.html',
@@ -34,7 +35,8 @@ var path = {
         img: 'src/img/**/*.*',
         svg: 'src/svg/*.svg',
         icons: 'src/img/icons/*.png',
-        fonts: 'src/fonts/**/*.*'
+        fonts: 'src/fonts/**/*.*',
+        video: 'src/video/*.*'
     },
     watch: {
         html: 'src/**/*.html',
@@ -44,7 +46,8 @@ var path = {
         img: 'src/img/**/*.*',
         svg: 'src/svg/*.svg',
         icons: 'src/img/icons/*.png',
-        fonts: 'src/fonts/**/*.*'
+        fonts: 'src/fonts/**/*.*',
+        video: 'src/video/*.*'
     },
     clean: './bitrix/templates/main/'
 };
@@ -129,6 +132,10 @@ gulp.task('image:build', function () {
         .pipe(gulp.dest(path.build.img));
         // .pipe(reload({stream: true}));
 });
+gulp.task('video:build', function () {
+    gulp.src(path.src.video) 
+        .pipe(gulp.dest(path.build.video));
+});
 gulp.task('svg:build', function () {
     gulp.src(path.src.svg) 
         .pipe(gulp.dest(path.build.svg));
@@ -166,6 +173,9 @@ gulp.task('watch', function(){
     });
     watch([path.watch.img], function(event, cb) {
         gulp.start('image:build');
+    });
+    watch([path.watch.video], function(event, cb) {
+        gulp.start('video:build');
     });
     watch([path.watch.svg], function(event, cb) {
         gulp.start('svg:build');
