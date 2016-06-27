@@ -114,19 +114,251 @@ $(document).ready(function () {
 
 	function swiperIndex(){
 		var video = $('.rotator-video').find('.swiper-container');
+
+
+
+
+		var swiperPunch = new Swiper('punchline-top__rotator', {
+			direction: 'vertical'
+		})
 		
 		var swiperVideo = new Swiper(video, {
 			pagination: '.rotator-video .pagination',
-			onInit: function(swiper) {				
+			paginationClickable: true,
+			autoplay: 7000,
+			loop: true,
+			onInit: function(swiper) {
+				var initVideo = $('.swiper-slide-active').find('video')[0];
 				setTimeout(function(){
-					initVideo = $(swiper).find('.swiper-slide-active').find('video')[0];
-					initVideo.play();
-				},100);
+					initVideo.play()
+				},1000);
+				createShadow();
+				// initPunch();
+			},
+			onTransitionStart: function(swiper) {
+				var nextVideo = $('.swiper-slide-active').find('video')[0];
+					nextVideo.play();
+
+				bulletsShadow();
+				// nextPunch($('.swiper-slide-active').data('swiper-slide-index'));
+				//slideText($('.swiper-slide-prev').data('swiper-slide-index'), $('.swiper-slide-active').data('swiper-slide-index'), $('.swiper-slide-next').data('swiper-slide-index'))
+			},
+			onTransitionEnd: function(swiper){
+				if($('.swiper-slide-prev').length) {
+					var prevVideo = $('.swiper-slide-prev').find('video')[0];
+					prevVideo.pause();
+				};
+				if($('.swiper-slide-next').length) {
+					var nextVideo = $('.swiper-slide-next').find('video')[0];
+					nextVideo.pause();
+				};			
 			}
 		});
+
 		if($('.rotator-video .pagination span').length === 1) {
 			$('.rotator-video .pagination').css('display', 'none');
 		}
+		
 	} swiperIndex();
+
+	function bulletsShadow() {
+		var index = $('.swiper-pagination-bullet-active').index(),
+			left = $('.swiper-pagination-bullet').eq(index).position().left;
+		$('.pagination').find('.shadow').css('left', left+6);
+	};
+	function createShadow() {
+		$('.pagination').append('<div class="shadow"></div>')
+	}
+
+
+	// function initPunch() {
+	// 	var rotator = $('.punchline-rotator');
+
+	// 	rotator.each(function(){
+	// 		var _ = $(this),
+	// 			item = _.find('.item'),
+	// 			fItem = item.first(),
+	// 			tl = new TimelineLite();
+
+	// 		tl	
+	// 			.set(item, {y: '50px', className: '-=active', zIndex: 1, autoAlpha: 0})
+	// 			.set(fItem, {y: '0', autoAlpha: 1, className: '+=active', zIndex: 4})		
+	// 	});
+	// }
+
+	// function nextPunch(item){
+	// 	var rotator = $('.punchline-rotator');
+
+	// 	console.log(item)
+
+	// 	rotator.each(function(){
+	// 		var textOut = $(this).find('.item').eq(item),
+	// 			textIn = textOut.next(), delay;
+
+	// 		if ($(this).hasClass('punchline-top')){
+	// 			delay = 0;
+	// 		} else {
+	// 			delay = 0.5;
+	// 		}
+
+	// 		slideText(textOut, textIn, delay);
+	// 	}) 
+	// }
+
+	// function slideText(textOut, textIn, delay) {
+	// 	var tl = new TimelineLite(),
+	// 		$first = textOut.parents().find('.item:first-of-type');
+
+	// 	if(textIn.length !== 0) {
+	// 		tl
+	// 			.set(textIn, {y: '50px', autoAlpha: 0, className: '+=active', zIndex: 4})
+	// 			.set(textOut, {className: '-=active', zIndex: 1, autoAlpha: 1})
+
+	// 			.to(textIn, 0.4, {y: '-=50px', autoAlpha: 1, ease: Power0.easeNone, delay: delay}, 0)
+	// 			.to(textOut, 0.4, {y: '-=50px', autoAlpha: 0, zIndex: 1, ease: Power0.easeNone, delay: delay}, 0)
+
+	// 			.set(textOut, {delay: 1, y: '50px'})
+	// 	} else {
+	// 		tl
+	// 			.set($first, {y: '50px', autoAlpha: 0, className: '+=active', zIndex: 4})
+	// 			.set(textOut, {className: '-=active', zIndex: 1, autoAlpha: 1})
+
+	// 			.to($first, 0.4, {y: '-=50px', autoAlpha: 1, ease: Power0.easeNone, delay: delay}, 0)
+	// 			.to(textOut, 0.4, {y: '-=50px', autoAlpha: 0, zIndex: 1, ease: Power0.easeNone, delay: delay}, 0)
+
+	// 			.set(textOut, {delay: 1, y: '50px'})
+	// 	}
+	// }
+	// 
+	
+	function bigSlider(element, settings) {
+		this.config = {
+			rotator: '.rotator-wrapper',
+			item: '.rotator_item',
+			pagin: '.pagination',
+			direction: 5000
+		};
+
+		$.extend(this.config || {});
+		this.$el  = element instanceof jQuery ? element : $(element);
+
+		this.init()		
+	}
+
+	bigSlider.prototype = {
+		constructor: bigSlider,
+
+		init: function(){
+			var _ = this;
+
+				_.$rotator = _.$el.find(_.config.rotator);
+				_.$item = _.$el.find(_.config.item);
+				_.$pagin = _.$el.find(_.config.pagin);
+				_.$direction = _.$el.find(_.config.direction);
+
+
+			_.pagination(_.$item, _.$pagin);
+			_.initAnimation(_.$item, _.$pagin);
+			_.initVideoPlay(_.$item);
+			_.initEvents();
+		},
+		initAnimation: function(item, pagin){
+			var tl = new TimelineLite();
+
+			item.first().addClass('current');
+
+			var index = item.parent().find('.current').index();
+
+			pagin.children().eq(index).addClass('pagin-current');
+			pagin.append('<div class="shadow"></div>');
+
+
+
+			tl
+				.set(item, {x: '50%', zIndex: 5, autoAlpha: 0})
+				.set(item.first(), {x: '-=50%', zIndex: 1, autoAlpha: 1})
+		},
+		initVideoPlay: function(item) {
+			if(!item.find('video').length) return false;
+
+			var video = item.find('video')[0];
+
+			video.play();
+		},
+		videoStop: function(){
+
+		},
+		shadowAction: function(current){
+			var index = current.index(),
+				left  = current.position().left;
+			console.log(left)
+			//alert();
+		},
+		pagination(item, pagin) {
+			var length = item.length,
+			i;
+
+			if(length === 1) return false;
+
+			for(i = 0; i < length; i++) {
+				pagin.append('<span class="pagin-item" data-item="'+ i + '"></span>')
+			}
+
+		},
+		initEvents: function(){
+			var _ = this;
+			var timeout;
+			var rotator = this.$rotator;
+			var pagin = this.$pagin;
+			if(_.config.direction === '') return false
+			timeout = setInterval(function(){
+				_.motion(rotator, pagin);
+			},_.config.direction);
+
+		},
+		motion: function(rotator, pagin) {
+			var current = rotator.find('.current'),
+				next = current.next(),
+				$first = current.parent().children().first(),
+				tl = new TimelineLite({onStart: this.shadowAction(current)}),
+				index = current.index();
+
+			
+
+			if(next.length !== 0) {
+				tl
+					.to(current, 1.5, {x: '-=50%', autoAlpha: 0, className: '-=current', zIndex: 1, ease:Power3.easeInOut})
+					.to(next, 1.5, {x: '-=50%', autoAlpha: 1, className: '+=current', zIndex: 5, ease:Power3.easeInOut}, 0)
+
+					.set(current, { x: '50%', zIndex: 1, delay: this.$direction})
+					.set(next, {zIndex: 5})
+			} else {
+				tl
+					.set($first, {x: '50%', autoAlpha: 1, className: '+=current', zIndex: 5})
+					.set(current, {className: '-=current', zIndex: 1})
+
+					.to(current, 1.5, {x: '-=50%', autoAlpha: 0, className: '-=current', zIndex: 1, ease:Power3.easeInOut})
+					.to($first, 1.5, {x: '-=50%', autoAlpha: 1, className: '+=current', zIndex: 4, ease:Power3.easeInOut}, 0)
+
+					.set(current, { x: '50%', zIndex: 1, delay: this.$direction})
+					.set($first, {zIndex: 5})
+			}			
+			pagin.children().eq(index).addClass('pagin-current').siblings().removeClass('pagin-current');	
+		}
+	}
+
+	// var slider = $('.rotator');
+	// slider = new bigSlider(slider);
+
+	function loadProject(link, id) {
+		$.alax({
+			url: link,
+			idProject: id,
+			complete: function(link){
+				console.log(link)
+				//$('.page-navigation').html('link')
+			}
+		})
+	}
 
 })
