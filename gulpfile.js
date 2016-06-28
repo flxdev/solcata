@@ -28,7 +28,7 @@ var path = {
         video: 'bitrix/templates/main/video/'
     },
     src: {
-        html: 'src/*.html',
+        html: 'src/**/*.html',
         js: 'src/js/**/*.js',
         css: 'src/css/*.*',
         sass: 'src/sass/screen.scss',

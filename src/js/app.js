@@ -4,7 +4,6 @@ $(window).load(function(){
 		$('.pjax').addClass('complete');
 	}, 1000);
 });
-
 $(document).ready(function () {
 
 	function Menu(){
@@ -114,33 +113,31 @@ $(document).ready(function () {
 
 	function swiperIndex(){
 		var video = $('.rotator-video').find('.swiper-container');
-
-
-
-
-		var swiperPunch = new Swiper('punchline-top__rotator', {
-			direction: 'vertical'
-		})
 		
 		var swiperVideo = new Swiper(video, {
 			pagination: '.rotator-video .pagination',
 			paginationClickable: true,
 			autoplay: 7000,
 			loop: true,
+			noSwiping: false,
+			// allowSwipeToNext: false,
 			onInit: function(swiper) {
 				var initVideo = $('.swiper-slide-active').find('video')[0];
 				setTimeout(function(){
-					initVideo.play()
+					if($('video')) {
+						initVideo.play()
+					}
 				},1000);
 				createShadow();
-				// initPunch();
+				initPunch();
 			},
 			onTransitionStart: function(swiper) {
 				var nextVideo = $('.swiper-slide-active').find('video')[0];
-					nextVideo.play();
-
+					if($('video').length) {
+						nextVideo.play();
+					}
 				bulletsShadow();
-				// nextPunch($('.swiper-slide-active').data('swiper-slide-index'));
+				nextPunch($('.swiper-slide-active').data('swiper-slide-index'));
 				//slideText($('.swiper-slide-prev').data('swiper-slide-index'), $('.swiper-slide-active').data('swiper-slide-index'), $('.swiper-slide-next').data('swiper-slide-index'))
 			},
 			onTransitionEnd: function(swiper){
@@ -171,65 +168,65 @@ $(document).ready(function () {
 	}
 
 
-	// function initPunch() {
-	// 	var rotator = $('.punchline-rotator');
+	function initPunch() {
+		var rotator = $('.punchline-rotator');
 
-	// 	rotator.each(function(){
-	// 		var _ = $(this),
-	// 			item = _.find('.item'),
-	// 			fItem = item.first(),
-	// 			tl = new TimelineLite();
+		rotator.each(function(){
+			var _ = $(this),
+				item = _.find('.item'),
+				fItem = item.first(),
+				tl = new TimelineLite();
 
-	// 		tl	
-	// 			.set(item, {y: '50px', className: '-=active', zIndex: 1, autoAlpha: 0})
-	// 			.set(fItem, {y: '0', autoAlpha: 1, className: '+=active', zIndex: 4})		
-	// 	});
-	// }
+			tl	
+				.set(item, {y: '25px', className: '-=active', zIndex: 1, autoAlpha: 0})
+				.set(fItem, {y: '25px', autoAlpha: 1, className: '+=active', zIndex: 4})		
+		});
+	}
 
-	// function nextPunch(item){
-	// 	var rotator = $('.punchline-rotator');
+	function nextPunch(item){
+		var rotator = $('.punchline-rotator');
 
-	// 	console.log(item)
+		rotator.each(function(){
+			var textOut = $(this).find('.item').eq(item),
+				textIn = textOut.siblings('.item'), 
+				delay;
 
-	// 	rotator.each(function(){
-	// 		var textOut = $(this).find('.item').eq(item),
-	// 			textIn = textOut.next(), delay;
+			if ($(this).hasClass('punchline-top')){
+				delay = 0;
+			} else {
+				delay = 0.1;
+			}
 
-	// 		if ($(this).hasClass('punchline-top')){
-	// 			delay = 0;
-	// 		} else {
-	// 			delay = 0.5;
-	// 		}
+			slideText(textOut, textIn, delay);
+		}) 
+	}
 
-	// 		slideText(textOut, textIn, delay);
-	// 	}) 
-	// }
+	function slideText(textOut, textIn, delay) {
+		var tl = new TimelineLite(),
+			$first = $('.item:first-of-type');
 
-	// function slideText(textOut, textIn, delay) {
-	// 	var tl = new TimelineLite(),
-	// 		$first = textOut.parents().find('.item:first-of-type');
+		if(textIn.length !== 0) {
+			tl
+				.set(textOut, {y: '25px', autoAlpha: 0, className: '+=active', zIndex: 4})
+				.set(textIn, {className: '-=active', zIndex: 1, autoAlpha: 1, delay: delay})
 
-	// 	if(textIn.length !== 0) {
-	// 		tl
-	// 			.set(textIn, {y: '50px', autoAlpha: 0, className: '+=active', zIndex: 4})
-	// 			.set(textOut, {className: '-=active', zIndex: 1, autoAlpha: 1})
+				.to(textOut, 0.3, {y: '-=25px', autoAlpha: 1, ease: Power0.easeNone, delay: delay}, 0)
+				.to(textIn, 0.3, {y: '-=50px', autoAlpha: 0, ease: Power0.easeNone, zIndex: 1, delay: delay}, 0)
 
-	// 			.to(textIn, 0.4, {y: '-=50px', autoAlpha: 1, ease: Power0.easeNone, delay: delay}, 0)
-	// 			.to(textOut, 0.4, {y: '-=50px', autoAlpha: 0, zIndex: 1, ease: Power0.easeNone, delay: delay}, 0)
+				.set(textIn, {delay: 1, y: '25px'})
+		} 
+		// else {
+		// 	tl
+		// 		.set($first, {y: '50px', autoAlpha: 0, className: '+=active', zIndex: 4})
+		// 		.set(textOut, {className: '-=active', zIndex: 1, autoAlpha: 1})
 
-	// 			.set(textOut, {delay: 1, y: '50px'})
-	// 	} else {
-	// 		tl
-	// 			.set($first, {y: '50px', autoAlpha: 0, className: '+=active', zIndex: 4})
-	// 			.set(textOut, {className: '-=active', zIndex: 1, autoAlpha: 1})
+		// 		.to($first, 0.4, {y: '-=50px', autoAlpha: 1, ease: Power0.easeNone, delay: delay}, 0)
+		// 		.to(textOut, 0.4, {y: '-=50px', autoAlpha: 0, zIndex: 1, ease: Power0.easeNone, delay: delay}, 0)
 
-	// 			.to($first, 0.4, {y: '-=50px', autoAlpha: 1, ease: Power0.easeNone, delay: delay}, 0)
-	// 			.to(textOut, 0.4, {y: '-=50px', autoAlpha: 0, zIndex: 1, ease: Power0.easeNone, delay: delay}, 0)
-
-	// 			.set(textOut, {delay: 1, y: '50px'})
-	// 	}
-	// }
-	// 
+		// 		.set(textOut, {delay: 1, y: '50px'})
+		// }
+	}
+	
 	
 	function bigSlider(element, settings) {
 		this.config = {
@@ -351,14 +348,34 @@ $(document).ready(function () {
 	// slider = new bigSlider(slider);
 
 	function loadProject(link, id) {
-		$.alax({
+		$.ajax({
 			url: link,
-			idProject: id,
-			complete: function(link){
-				console.log(link)
-				//$('.page-navigation').html('link')
+			dataType:"html",
+			beforeSend: function(){
+				$('.pjax').addClass('loading').removeClass('complete');
+			},
+			success: function(b){
+				var h = $(b).find('#' + id);
+				
+				if(id === 'index') {
+					window.history.replaceState("page" + id, id, link);
+				} else {
+					window.history.replaceState("page" + id, id, link);
+				}
+				setTimeout( function(){	
+					$('.pjax').html(h);
+					$('.pjax').removeClass('loading').addClass('complete');
+				},1500);
+				
 			}
 		})
 	}
+
+	$('.ajaxtrigger').on('click', function(){
+		
+		loadProject($(this).attr('href'), $(this).data('id'));
+
+		return false;
+	});
 
 })
