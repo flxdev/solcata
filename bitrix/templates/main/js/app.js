@@ -4,8 +4,8 @@ $(window).load(function(){
 		$('.pjax').addClass('complete');
 	}, 1000);
 });
-$(document).ready(function () {
 
+$(document).ready(function () {
 	function Menu(){
 		var trigger = $('.navigation__trigger'),
 			area = $('.navigation-area'),
@@ -138,7 +138,6 @@ $(document).ready(function () {
 					}
 				bulletsShadow();
 				nextPunch($('.swiper-slide-active').data('swiper-slide-index'));
-				//slideText($('.swiper-slide-prev').data('swiper-slide-index'), $('.swiper-slide-active').data('swiper-slide-index'), $('.swiper-slide-next').data('swiper-slide-index'))
 			},
 			onTransitionEnd: function(swiper){
 				if($('.swiper-slide-prev').length) {
@@ -163,6 +162,7 @@ $(document).ready(function () {
 			left = $('.swiper-pagination-bullet').eq(index).position().left;
 		$('.pagination').find('.shadow').css('left', left+6);
 	};
+
 	function createShadow() {
 		$('.pagination').append('<div class="shadow"></div>')
 	}
@@ -226,126 +226,6 @@ $(document).ready(function () {
 		// 		.set(textOut, {delay: 1, y: '50px'})
 		// }
 	}
-	
-	
-	function bigSlider(element, settings) {
-		this.config = {
-			rotator: '.rotator-wrapper',
-			item: '.rotator_item',
-			pagin: '.pagination',
-			direction: 5000
-		};
-
-		$.extend(this.config || {});
-		this.$el  = element instanceof jQuery ? element : $(element);
-
-		this.init()		
-	}
-
-	bigSlider.prototype = {
-		constructor: bigSlider,
-
-		init: function(){
-			var _ = this;
-
-				_.$rotator = _.$el.find(_.config.rotator);
-				_.$item = _.$el.find(_.config.item);
-				_.$pagin = _.$el.find(_.config.pagin);
-				_.$direction = _.$el.find(_.config.direction);
-
-
-			_.pagination(_.$item, _.$pagin);
-			_.initAnimation(_.$item, _.$pagin);
-			_.initVideoPlay(_.$item);
-			_.initEvents();
-		},
-		initAnimation: function(item, pagin){
-			var tl = new TimelineLite();
-
-			item.first().addClass('current');
-
-			var index = item.parent().find('.current').index();
-
-			pagin.children().eq(index).addClass('pagin-current');
-			pagin.append('<div class="shadow"></div>');
-
-
-
-			tl
-				.set(item, {x: '50%', zIndex: 5, autoAlpha: 0})
-				.set(item.first(), {x: '-=50%', zIndex: 1, autoAlpha: 1})
-		},
-		initVideoPlay: function(item) {
-			if(!item.find('video').length) return false;
-
-			var video = item.find('video')[0];
-
-			video.play();
-		},
-		videoStop: function(){
-
-		},
-		shadowAction: function(current){
-			var index = current.index(),
-				left  = current.position().left;
-			console.log(left)
-			//alert();
-		},
-		pagination(item, pagin) {
-			var length = item.length,
-			i;
-
-			if(length === 1) return false;
-
-			for(i = 0; i < length; i++) {
-				pagin.append('<span class="pagin-item" data-item="'+ i + '"></span>')
-			}
-
-		},
-		initEvents: function(){
-			var _ = this;
-			var timeout;
-			var rotator = this.$rotator;
-			var pagin = this.$pagin;
-			if(_.config.direction === '') return false
-			timeout = setInterval(function(){
-				_.motion(rotator, pagin);
-			},_.config.direction);
-
-		},
-		motion: function(rotator, pagin) {
-			var current = rotator.find('.current'),
-				next = current.next(),
-				$first = current.parent().children().first(),
-				tl = new TimelineLite({onStart: this.shadowAction(current)}),
-				index = current.index();
-
-			
-
-			if(next.length !== 0) {
-				tl
-					.to(current, 1.5, {x: '-=50%', autoAlpha: 0, className: '-=current', zIndex: 1, ease:Power3.easeInOut})
-					.to(next, 1.5, {x: '-=50%', autoAlpha: 1, className: '+=current', zIndex: 5, ease:Power3.easeInOut}, 0)
-
-					.set(current, { x: '50%', zIndex: 1, delay: this.$direction})
-					.set(next, {zIndex: 5})
-			} else {
-				tl
-					.set($first, {x: '50%', autoAlpha: 1, className: '+=current', zIndex: 5})
-					.set(current, {className: '-=current', zIndex: 1})
-
-					.to(current, 1.5, {x: '-=50%', autoAlpha: 0, className: '-=current', zIndex: 1, ease:Power3.easeInOut})
-					.to($first, 1.5, {x: '-=50%', autoAlpha: 1, className: '+=current', zIndex: 4, ease:Power3.easeInOut}, 0)
-
-					.set(current, { x: '50%', zIndex: 1, delay: this.$direction})
-					.set($first, {zIndex: 5})
-			}			
-			pagin.children().eq(index).addClass('pagin-current').siblings().removeClass('pagin-current');	
-		}
-	}
-
-	// var slider = $('.rotator');
-	// slider = new bigSlider(slider);
 
 	function loadProject(link, id) {
 		$.ajax({
@@ -356,20 +236,14 @@ $(document).ready(function () {
 			},
 			success: function(b){
 				var h = $(b).find('#' + id);
-				
-				if(id === 'index') {
-					window.history.replaceState("page" + id, id, link);
-				} else {
-					window.history.replaceState("page" + id, id, link);
-				}
+				window.history.replaceState("page" + id, id, link);
 				setTimeout( function(){	
 					$('.pjax').html(h);
 					$('.pjax').removeClass('loading').addClass('complete');
 				},1500);
-				
 			}
-		})
-	}
+		});
+	};
 
 	$('.ajaxtrigger').on('click', function(){
 		
@@ -377,5 +251,4 @@ $(document).ready(function () {
 
 		return false;
 	});
-
 })

@@ -203,7 +203,7 @@ a {
 	@include x-rem(top, 55px);
 	opacity: 0;
 	transition: opacity 1s linear;
-	z-index: 15;
+	z-index: 25;
 	.language-item {
 		font-family: $GaramondProBoldItalic;
 		@include x-rem(font-size, 16px);
