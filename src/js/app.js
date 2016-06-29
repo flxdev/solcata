@@ -5,229 +5,240 @@ $(window).load(function(){
 	}, 1000);
 });
 
-$(document).ready(function () {
-	function Menu(){
-		var trigger = $('.navigation__trigger'),
-			area = $('.navigation-area'),
-			content = $('.navigation-content'),
-			tl = new TimelineLite();
-		tl
-				.set(area, {autoAlpha: 0, visibility: 'hidden'})
-				.set(content, {width: '0'})
-		trigger.on('click', function(){
-			var _ = $(this);
-			if(!_.hasClass('open')) {
-				tl
-					.set(_, {className: '+=open'})
-					.to(area, 0.3, {autoAlpha: 1, ease:Power3.easeInOut})
-					.to(content, 0.3, {width: '540px', ease:Power3.easeInOut}, 0)
-			} else {
-				tl
-					.set(_, {className: '-=open'})
-					.to(content, 0.3, {width: '0', ease:Power3.easeInOut}, 0)
-					.to(area, 0.3, {autoAlpha: 0, delay: 0.2, ease:Power3.easeInOut})
-			}
-				
-		});
-		area.on('click', function(){
+function Menu(){
+	var trigger = $('.navigation__trigger'),
+		area = $('.navigation-area'),
+		content = $('.navigation-content'),
+		view = $('.viewport'),
+		tl = new TimelineLite();
+	tl
+			.set(area, {autoAlpha: 0, visibility: 'hidden'})
+			.set(content, {width: '0'})
+	trigger.on('click', function(){
+		var _ = $(this);
+		view.addClass('return');
+		if(!_.hasClass('open')) {
 			tl
-				.set(trigger, {className: '-=open'})
+				.set(_, {className: '+=open'})
+				.to(area, 0.3, {autoAlpha: 1, ease:Power3.easeInOut})
+				.to(content, 0.3, {width: '540px', ease:Power3.easeInOut}, 0)
+		} else {
+			tl
+				.set(_, {className: '-=open'})
 				.to(content, 0.3, {width: '0', ease:Power3.easeInOut}, 0)
 				.to(area, 0.3, {autoAlpha: 0, delay: 0.2, ease:Power3.easeInOut})
-		});
-		content.on('click', function(event){
-			event.stopPropagation();
-		})
-	}
-	Menu();
-
-	function menuNumbers(){
-		var container = $('.navigation-layer'),
-			numbers = $('.navigation-numbers'),
-			list = $('.navigation-list'),
-			numbersItem = $('.navigation-items'),
-			numbersItemLength = +numbersItem.length,
-			active = container.find('.active'),
-			index = active.data('number'),
-			trigger = $('.navigation__trigger'),
-			area = container.parents('.navigation-area'),
-			content = container.parents('.navigation-content'),
-			tl = new TimelineLite();
-
-		for(var i = 0; i <= numbersItemLength - 1; i++) {
-			numbers.append('<div class="numb-item">0' + (i +1) + '</div>')
 		}
 
-		var activeIndex = list.find('.active').index();
-		numbers.children().eq(activeIndex).addClass('visible');
+			
+	});
+	area.on('click', function(){
+		tl
+			.set(trigger, {className: '-=open'})
+			.to(content, 0.3, {width: '0', ease:Power3.easeInOut}, 0)
+			.to(area, 0.3, {autoAlpha: 0, delay: 0.2, ease:Power3.easeInOut})
+		view.removeClass('return');
+	});
+	content.on('click', function(event){
+		event.stopPropagation();
+	})
+};	
 
+function menuNumbers(){
+	var container = $('.navigation-layer'),
+		numbers = $('.navigation-numbers'),
+		list = $('.navigation-list'),
+		numbersItem = $('.navigation-items'),
+		numbersItemLength = +numbersItem.length,
+		active = container.find('.active'),
+		index = active.data('number'),
+		trigger = $('.navigation__trigger'),
+		area = container.parents('.navigation-area'),
+		content = container.parents('.navigation-content'),
+		view = $('.viewport'),
+		tl = new TimelineLite();
 
+	for(var i = 0; i <= numbersItemLength - 1; i++) {
+		numbers.append('<div class="numb-item">0' + (i +1) + '</div>')
+	}
 
+	var activeIndex = list.find('.active').index();
+	numbers.children().eq(activeIndex).addClass('visible');
 
-		numbersItem.on('mouseenter', function(){
-			var _ = $(this),
-				index = _.index();
-			numbers.children().eq(index).addClass('visible').siblings().removeClass('visible');
-		});
+	numbersItem.on('mouseenter', function(){
+		var _ = $(this),
+			index = _.index();
+		numbers.children().eq(index).addClass('visible').siblings().removeClass('visible');
+	});
 
-		numbersItem.parent().on('mouseleave', function(){
-			var _ = $(this),
-				index = _.find('.active').index();
-			numbers.children().eq(index).addClass('visible').siblings().removeClass('visible');
-		});
+	numbersItem.parent().on('mouseleave', function(){
+		var _ = $(this),
+			index = _.find('.active').index();
+		numbers.children().eq(index).addClass('visible').siblings().removeClass('visible');
+	});
+
+	tl
+		.set(container, {autoAlpha: 1});
+
+	numbersItem.on('click', function(){
+		var _ = $(this);
+
+		_.addClass('active').siblings().removeClass('active');
+
+		view.removeClass('return');
 
 		tl
-			.set(container, {autoAlpha: 1});
+			.to(content, 0.5, {width: '100%', ease:Power3.easeInOut})
+			.to(area, 0.5, {autoAlpha: 0, ease:Power3.easeInOut})
 
-		numbersItem.on('click', function(){
-			var _ = $(this);
+			.set(content, {width: '0', delay: 0.5})
+			.set(trigger, {className: '-=open'})
 
-			_.addClass('active').siblings().removeClass('active');
+		return false;
 
-			tl
-				.to(content, 0.5, {width: '100%', ease:Power3.easeInOut})
-				.to(area, 0.5, {autoAlpha: 0, ease:Power3.easeInOut})
+	});
+};
 
-				.set(content, {width: '0', delay: 0.5})
-				.set(trigger, {className: '-=open'})
+function Direction() {
+	$('.viewport').mousewheel(function(event) {
+		if(event.deltaY === 1) {
+			if($(this).hasClass("return")) return false
+			//up
+			if($('#pager-top').hasClass('inactive')) return false;
+			$('#pager-top').trigger('click');
+		} else {
+			if($(this).hasClass("return")) return false
+			//down
+			if($('#pager-bottom').hasClass('inactive')) return false;
+			$('#pager-bottom').trigger('click');
+		}
+		$(this).addClass('return')
+	});
+};
 
-			return false;
-
-		});
-
-	} menuNumbers();
-
-	function Direction() {
-		$('.viewport').mousewheel(function(event) {
-			if(event.deltaY === 1) {
-				if($(this).hasClass("return")) return false
-				//console.log('up')
-			} else {
-				if($(this).hasClass("return")) return false
-				//console.log('down')
-			}
-			//$(this).addClass('return')
-		});
-	} Direction();
-
-
-	function swiperIndex(){
-		var video = $('.rotator-video').find('.swiper-container');
+function swiperIndex(){
+	if($('.rotator').length){
+		var video = $('.rotator').find('.swiper-container');
 		
 		var swiperVideo = new Swiper(video, {
-			pagination: '.rotator-video .pagination',
+			pagination: '.rotator .pagination',
 			paginationClickable: true,
 			autoplay: 7000,
 			loop: true,
 			noSwiping: false,
-			// allowSwipeToNext: false,
+			runCallbacksOnInit: false,
 			onInit: function(swiper) {
-				var initVideo = $('.swiper-slide-active').find('video')[0];
-				setTimeout(function(){
-					if($('video')) {
-						initVideo.play()
-					}
-				},1000);
 				createShadow();
 				initPunch();
+				if($('video').length) {
+					var initVideo = $('.swiper-slide-active').find('video')[0];
+					setTimeout(function(){
+							initVideo.play();
+					},10);
+				};
 			},
-			onTransitionStart: function(swiper) {
-				var nextVideo = $('.swiper-slide-active').find('video')[0];
-					if($('video').length) {
-						nextVideo.play();
-					}
+			onSlideChangeStart: function(swiper) {
+				if($('video').length) {
+					var nextVideo = $('.swiper-slide-active').find('video')[0];
+					nextVideo.play();
+				}
 				bulletsShadow();
 				nextPunch($('.swiper-slide-active').data('swiper-slide-index'));
 			},
-			onTransitionEnd: function(swiper){
-				if($('.swiper-slide-prev').length) {
-					var prevVideo = $('.swiper-slide-prev').find('video')[0];
-					prevVideo.pause();
-				};
-				if($('.swiper-slide-next').length) {
-					var nextVideo = $('.swiper-slide-next').find('video')[0];
-					nextVideo.pause();
-				};			
+			onSlideChangeEnd: function(swiper){
+				if($('video').length) {
+					if($('.swiper-slide-prev').length) {
+						var prevVideo = $('.swiper-slide-prev').find('video')[0];
+						prevVideo.pause();
+					};
+					if($('.swiper-slide-next').length) {
+						var nextVideo = $('.swiper-slide-next').find('video')[0];
+						nextVideo.pause();
+					};
+				};		
 			}
 		});
 
-		if($('.rotator-video .pagination span').length === 1) {
-			$('.rotator-video .pagination').css('display', 'none');
+		if($('.rotator .pagination span').length === 1) {
+			$('.rotator .pagination').css('display', 'none');
 		}
-		
-	} swiperIndex();
-
-	function bulletsShadow() {
-		var index = $('.swiper-pagination-bullet-active').index(),
-			left = $('.swiper-pagination-bullet').eq(index).position().left;
-		$('.pagination').find('.shadow').css('left', left+6);
-	};
-
-	function createShadow() {
-		$('.pagination').append('<div class="shadow"></div>')
-	}
-
-
-	function initPunch() {
-		var rotator = $('.punchline-rotator');
-
-		rotator.each(function(){
-			var _ = $(this),
-				item = _.find('.item'),
-				fItem = item.first(),
-				tl = new TimelineLite();
-
-			tl	
-				.set(item, {y: '25px', className: '-=active', zIndex: 1, autoAlpha: 0})
-				.set(fItem, {y: '25px', autoAlpha: 1, className: '+=active', zIndex: 4})		
-		});
-	}
-
-	function nextPunch(item){
-		var rotator = $('.punchline-rotator');
-
-		rotator.each(function(){
-			var textOut = $(this).find('.item').eq(item),
-				textIn = textOut.siblings('.item'), 
-				delay;
-
-			if ($(this).hasClass('punchline-top')){
-				delay = 0;
-			} else {
-				delay = 0.1;
+		function bulletsShadow() {
+			if($('.swiper-pagination-bullet-active').length) {
+				var left = $('.swiper-pagination-bullet-active').position().left;
+				$('.pagination').find('.shadow').css('left', left + 6);
 			}
+		};
 
-			slideText(textOut, textIn, delay);
-		}) 
-	}
+		function createShadow() {
+			$('.pagination').append('<div class="shadow"></div>')
+		};
+	};
+};
 
-	function slideText(textOut, textIn, delay) {
-		var tl = new TimelineLite(),
-			$first = $('.item:first-of-type');
+function initPunch() {
+	var rotator = $('.punchline-rotator');
 
-		if(textIn.length !== 0) {
-			tl
-				.set(textOut, {y: '25px', autoAlpha: 0, className: '+=active', zIndex: 4})
-				.set(textIn, {className: '-=active', zIndex: 1, autoAlpha: 1, delay: delay})
+	rotator.each(function(){
+		var _ = $(this),
+			item = _.find('.item'),
+			fItem = item.first(),
+			tl = new TimelineLite();
 
-				.to(textOut, 0.3, {y: '-=25px', autoAlpha: 1, ease: Power0.easeNone, delay: delay}, 0)
-				.to(textIn, 0.3, {y: '-=50px', autoAlpha: 0, ease: Power0.easeNone, zIndex: 1, delay: delay}, 0)
+		tl	
+			.set(item, {y: '25px', className: '-=active', zIndex: 1, autoAlpha: 0})
+			.set(fItem, {y: '0px', autoAlpha: 1, className: '+=active', zIndex: 4})		
+	});
+};
 
-				.set(textIn, {delay: 1, y: '25px'})
-		} 
-		// else {
-		// 	tl
-		// 		.set($first, {y: '50px', autoAlpha: 0, className: '+=active', zIndex: 4})
-		// 		.set(textOut, {className: '-=active', zIndex: 1, autoAlpha: 1})
+function nextPunch(item){
+	var rotator = $('.punchline-rotator');
 
-		// 		.to($first, 0.4, {y: '-=50px', autoAlpha: 1, ease: Power0.easeNone, delay: delay}, 0)
-		// 		.to(textOut, 0.4, {y: '-=50px', autoAlpha: 0, zIndex: 1, ease: Power0.easeNone, delay: delay}, 0)
+	rotator.each(function(){
+		var textOut = $(this).find('.item').eq(item),
+			textIn = textOut.siblings('.item'), 
+			delay;
 
-		// 		.set(textOut, {delay: 1, y: '50px'})
-		// }
-	}
+		if ($(this).hasClass('punchline-top')){
+			delay = 0;
+		} else {
+			delay = 0.1;
+		}
 
-	function loadProject(link, id) {
+		slideText(textOut, textIn, delay);
+	}) 
+};
+
+function slideText(textOut, textIn, delay) {
+	var tl = new TimelineLite(),
+		$first = $('.item:first-of-type');
+
+	if(textIn.length !== 0) {
+		tl
+			.set(textOut, {y: '25px', autoAlpha: 0, className: '+=active', zIndex: 4})
+			.set(textIn, {className: '-=active', zIndex: 1, autoAlpha: 1, delay: delay})
+
+			.to(textOut, 0.5, {y: '-=25px', autoAlpha: 1, ease: Power0.easeNone, delay: delay}, 0)
+			.to(textIn, 0.3, {y: '-=50px', autoAlpha: 0, ease: Power0.easeNone, zIndex: 1, delay: delay}, 0)
+
+			.set(textIn, {delay: 0.5, y: '25px'})
+	} 
+	// else {
+	// 	tl
+	// 		.set($first, {y: '50px', autoAlpha: 0, className: '+=active', zIndex: 4})
+	// 		.set(textOut, {className: '-=active', zIndex: 1, autoAlpha: 1})
+
+	// 		.to($first, 0.4, {y: '-=50px', autoAlpha: 1, ease: Power0.easeNone, delay: delay}, 0)
+	// 		.to(textOut, 0.4, {y: '-=50px', autoAlpha: 0, zIndex: 1, ease: Power0.easeNone, delay: delay}, 0)
+
+	// 		.set(textOut, {delay: 1, y: '50px'})
+	// }
+};
+
+
+$(document).ready(function () {
+	Direction();
+	Menu();
+	menuNumbers();
+	function loadProject(link) {
 		$.ajax({
 			url: link,
 			dataType:"html",
@@ -235,11 +246,13 @@ $(document).ready(function () {
 				$('.pjax').addClass('loading').removeClass('complete');
 			},
 			success: function(b){
-				var h = $(b).find('#' + id);
-				window.history.replaceState("page" + id, id, link);
+				var h = $(b).find('#container');
+				window.history.replaceState("page" + link, link, link);
 				setTimeout( function(){	
 					$('.pjax').html(h);
+					replaceAttr(b);
 					$('.pjax').removeClass('loading').addClass('complete');
+					$('.viewport').removeClass('return');
 				},1500);
 			}
 		});
@@ -247,8 +260,28 @@ $(document).ready(function () {
 
 	$('.ajaxtrigger').on('click', function(){
 		
-		loadProject($(this).attr('href'), $(this).data('id'));
+		loadProject($(this).attr('href'));
 
 		return false;
 	});
+
+	function replaceAttr(b) {
+		var top = $(b).find('#pager-top'),
+			bottom = $(b).find('#pager-bottom'),
+			topHref = top.attr('href'),
+			bottomHref = bottom.attr('href'),
+			topClass = top.attr('class'),
+			bottomClass = bottom.attr('class'),
+			curTop = $('#pager-top'),
+			curBottom = $('#pager-bottom'),
+			list = $(b).find('.navigation-list'),
+			r = list.find('.active').index(),
+			curlist = $('.navigation-list');
+
+		curTop.attr('href', topHref).attr('class', topClass);
+		curBottom.attr('href', bottomHref).attr('class', bottomClass);
+			
+		curlist.find('.navigation-items').eq(r).addClass('active').siblings().removeClass('active');
+		curlist.prev().find('.numb-item').eq(r).addClass('visible').siblings().removeClass('visible');
+	}
 })

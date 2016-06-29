@@ -8,8 +8,35 @@
 <div class="viewport">
 	//= includes/header.html
 	<div class="pjax">
-		<div class="pjax-container" id="company">
-			1
+		<div class="pjax-container" id="container">
+			<div class="rotator">
+				<div class="rotator__right">
+					<div class="rotator-image">
+						<div class="swiper-container">
+							<div class="swiper-wrapper">
+								<div class="rotator-image_item swiper-slide" style="" data-video="1">
+									<img src="../img/slider/slide.jpg" alt="">
+								</div>
+								<div class="rotator-image_item swiper-slide" style="" data-video="2">
+									<img src="../img/slider/slide.jpg" alt="">
+								</div>
+								<div class="rotator-image_item swiper-slide" style="" data-video="3">
+									<img src="../img/slider/slide.jpg" alt="">
+								</div>
+							</div>
+						</div>
+						<div class="pagination"></div>
+					</div>
+				</div>
+				<div class="rotator__left">
+					<div class="punchline"></div>
+				</div>
+			</div>
+			<script>
+				$(function(){
+					swiperIndex();
+				});
+			</script>
 		</div>
 	</div>
 	//= includes/footer.html
@@ -23,8 +50,8 @@
 			<div class="navigation-layer">
 				<div class="navigation-numbers"></div>
 				<div class="navigation-list">
-					<a href="/" data-id="index" class="navigation-items ajaxtrigger"><span>Home</span></a>
-					<a href="/company/" data-id="company" class="navigation-items active ajaxtrigger"><span>Company</span></a>
+					<a href="/" class="navigation-items ajaxtrigger"><span>Home</span></a>
+					<a href="/company/" class="navigation-items active ajaxtrigger"><span>Company</span></a>
 					<a href="#" class="navigation-items ajaxtrigger"><span>Products</span></a>
 					<a href="#" class="navigation-items ajaxtrigger"><span>Logistics</span></a>
 					<a href="#" class="navigation-items ajaxtrigger"><span>Media center</span></a>
@@ -36,8 +63,8 @@
 	<div class="page-navigation">
 		<div class="page-navigation_container">
 			<div class="pager">
-				<a id="pager-top" href="/" class="pager__item pager__item-top ajaxtrigger" data-id='index'></a>
-				<a id="pager-bottom" href="/company/" class="pager__item pager__item-bottom ajaxtrigger" data-id='company'></a>
+				<a id="pager-top" href="/" class="pager__item pager__item-top ajaxtrigger"></a>
+				<a id="pager-bottom" href="/company/" class="pager__item pager__item-bottom ajaxtrigger"></a>
 			</div>
 		</div>
 	</div>
