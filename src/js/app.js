@@ -160,13 +160,17 @@ function swiperIndex(){
 		var imagesSettings = {
 			pagination: '.rotator .pagination',
 			paginationClickable: true,
-			autoplay: 7000,
+			autoplay: 5000,
 			speed: 1200,
 			loop: true,
 			noSwiping: false,
 			runCallbacksOnInit: false,
 			effect: 'fade',
+			onInit: function(swiper) {
+				createShadow();
+			},
 			onSlideChangeStart: function(swiper, event){
+				bulletsShadow();
 				nextPunch($('.swiper-slide-active').data('swiper-slide-index'));
 			}
 		};

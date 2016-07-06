@@ -314,7 +314,7 @@ a {
 	.logo, .navigation, .language {
 		opacity: 1;
 	}
-	.page-navigation, .requisites, .pagination, .punchline {
+	.page-navigation, .requisites {
 		opacity: 1;
 		transform: none;
 	}
@@ -345,6 +345,10 @@ a {
 			transition: opacity 0.5s linear 0.5s;
 			opacity: 0;
 		}
+		.pagination, .punchline {
+			opacity: 1;
+			transform: none;
+		}
 	}
 	.pjax-container {
 		position: relative;
@@ -374,6 +378,15 @@ a {
 			bottom: 0;
 			background-color: $beige;
 			z-index: 15;
+		}
+		& + .punchline {
+			width: 80%;
+			.punchline-bottom, .punchline-top {
+				width: 80%;
+				.item {
+					width: 100%;
+				}
+			}
 		}
 		.rotator-video_item {
 			width: 100%;
@@ -427,6 +440,10 @@ a {
 			img {
 				transform: scale(1.2) translateX(130px);
 				transition: transform 7s linear 0s;
+				max-width: 105%;
+				position: absolute;
+				bottom: 0;
+				right: 0;
 
 			}
 			&.swiper-slide-active {
@@ -440,9 +457,10 @@ a {
 			height: 100%;
 		}
 		.pagination {
-			bottom: 20px;
-			left: 40%;
+			@include x-rem(bottom, 20px);
+			left: 6%;
 			z-index: 15;
+
 		}
 		.swiper-pagination-bullet {
 			opacity: 1;
@@ -488,7 +506,7 @@ video {
 	position: absolute;
 	transform: translateY(-30%);
 	opacity: 0;
-	transition: opacity 0.5s linear 0s, transform 0.5s linear 0s;
+	transition: opacity 0.5s linear 0.5s, transform 0.5s linear 0.5s;
 	.shadow {
 		position: absolute;
 		left: 6px;
@@ -580,7 +598,7 @@ video {
 		@include x-rem(font-size, 42px);
 		@include x-rem( line-height, 48px);
 		color: $orange;
-		padding-left: 50px;
+		@include x-rem(padding, 0 15px 0 50px);
 		position: relative;
 		&::before {
 			content: '—';
