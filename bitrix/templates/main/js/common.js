@@ -193,12 +193,12 @@ function menuNumbers(){
 function Direction() {
 	$('.viewport').mousewheel(function(event) {
 		if(event.deltaY === 1) {
-			if($(this).hasClass("return")) return false
+			if($(this).hasClass("return")) return false;
 			//up
 			if($('#pager-top').hasClass('inactive')) return false;
 			$('#pager-top').trigger('click');
 		} else {
-			if($(this).hasClass("return")) return false
+			if($(this).hasClass("return")) return false;
 			//down
 			if($('#pager-bottom').hasClass('inactive')) return false;
 			$('#pager-bottom').trigger('click');
@@ -207,48 +207,81 @@ function Direction() {
 	});
 };
 
+var swiperVideo;
 function swiperIndex(){
 	if($('.rotator').length){
-		var video = $('.rotator').find('.swiper-container');
-		
-		var swiperVideo = new Swiper(video, {
+		var gRotator = $('.rotator').find('.swiper-container');
+
+		var videoSettings = {
 			pagination: '.rotator .pagination',
 			paginationClickable: true,
 			autoplay: 7000,
+			speed: 1200,
 			loop: true,
 			noSwiping: false,
 			runCallbacksOnInit: false,
+			effect: 'fade',
 			onInit: function(swiper) {
 				createShadow();
-				initPunch();
-				if($('video').length) {
-					var initVideo = $('.swiper-slide-active').find('video')[0];
-					setTimeout(function(){
-							initVideo.play();
-					},10);
-				};
+				var initVideo = $('.swiper-slide-active').find('video')[0];
+				setTimeout(function(){
+						initVideo.play();
+
+				},10);
+				
 			},
 			onSlideChangeStart: function(swiper) {
-				if($('video').length) {
-					var nextVideo = $('.swiper-slide-active').find('video')[0];
-					nextVideo.play();
-				}
+				var nextVideo = $('.swiper-slide-active').find('video')[0];
+				nextVideo.play();
 				bulletsShadow();
 				nextPunch($('.swiper-slide-active').data('swiper-slide-index'));
+				
 			},
 			onSlideChangeEnd: function(swiper){
-				if($('video').length) {
-					if($('.swiper-slide-prev').length) {
-						var prevVideo = $('.swiper-slide-prev').find('video')[0];
-						prevVideo.pause();
-					};
-					if($('.swiper-slide-next').length) {
-						var nextVideo = $('.swiper-slide-next').find('video')[0];
-						nextVideo.pause();
-					};
-				};		
+				if($('.swiper-slide-prev').length) {
+					var prevVideo = $('.swiper-slide-prev').find('video')[0];
+					prevVideo.pause();
+				};
+				if($('.swiper-slide-next').length) {
+					var nextVideo = $('.swiper-slide-next').find('video')[0];
+					nextVideo.pause();
+				};	
 			}
-		});
+		};
+
+		var imagesSettings = {
+			pagination: '.rotator .pagination',
+			paginationClickable: true,
+			autoplay: 7000,
+			speed: 1200,
+			loop: true,
+			noSwiping: false,
+			runCallbacksOnInit: false,
+			effect: 'fade',
+			onSlideChangeStart: function(swiper, event){
+				nextPunch($('.swiper-slide-active').data('swiper-slide-index'));
+			}
+		};
+
+		if(typeof $('.rotator-video') == 'object' && $('.rotator-video').length > 0) {
+			if(typeof swiperVideo == 'object') {
+				swiperVideo.destroy();
+			}
+			setTimeout(function(){
+				swiperVideo = new Swiper(gRotator, videoSettings);
+			},10)
+				
+		} 
+		if(typeof $('.rotator-image') == 'object' && $('.rotator-image').length > 0) {
+			if(typeof swiperVideo == 'object') {
+				swiperVideo.destroy();
+			}
+			setTimeout(function(){
+				swiperVideo = new Swiper(gRotator, imagesSettings);
+			},10)
+			
+		};
+		
 
 		if($('.rotator .pagination span').length === 1) {
 			$('.rotator .pagination').css('display', 'none');
@@ -269,6 +302,8 @@ function swiperIndex(){
 function initPunch() {
 	var rotator = $('.punchline-rotator');
 
+	console.log('initPunch')
+
 	rotator.each(function(){
 		var _ = $(this),
 			item = _.find('.item'),
@@ -283,6 +318,8 @@ function initPunch() {
 
 function nextPunch(item){
 	var rotator = $('.punchline-rotator');
+
+	console.log('nextPunch')
 
 	rotator.each(function(){
 		var textOut = $(this).find('.item').eq(item),
@@ -343,9 +380,11 @@ $(document).ready(function () {
 				setTimeout( function(){	
 					$('.pjax').html(h);
 					replaceAttr(b);
-					$('.pjax').removeClass('loading').addClass('complete');
-					$('.viewport').removeClass('return');
-				},1500);
+					setTimeout(function(){
+						$('.pjax').removeClass('loading').addClass('complete');
+						$('.viewport').removeClass('return');
+					}, 1000);
+				},1000);
 			}
 		});
 	};

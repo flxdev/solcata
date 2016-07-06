@@ -27,7 +27,7 @@
 	</header>
 	<div class="pjax">
 		<div class="pjax-container" id="container">
-			<div class="rotator">
+			<div class="rotator rotator-company">
 				<div class="rotator__right">
 					<div class="rotator-image">
 						<div class="swiper-container">
@@ -47,11 +47,47 @@
 					</div>
 				</div>
 				<div class="rotator__left">
-					<div class="punchline"></div>
+					<div class="content">
+						<div class="title">company</div>
+					</div>
+					<div class="punchline">
+						<div class="punchline-top punchline-rotator">
+							<div class="item">
+								<div class="company__head">Faithful to&nbsp;traditions1</div>
+							</div>
+							<div class="item">
+								<div class="company__head">Faithful to&nbsp;traditions2</div>
+							</div>
+							<div class="item">
+								<div class="company__head">Faithful to&nbsp;traditions3</div>
+							</div>
+						</div>
+						<div class="punchline-bottom punchline-rotator">
+							<div class="item">
+								<div class="company__body">
+									<p><strong>Solcata invests worldwide in strategically located infrastructure to streamline commodity supply chains and make trading more efficient.</strong> If infra&shy;structure is there already we invest to improve it. Where it doesn’t exist we build it ourselves.</p>
+									<p>And we have a long-term perspective. We act as part&shy;ner to nations, corporations and communities.</p>
+								</div>
+							</div>
+							<div class="item">
+								<div class="company__body">
+									<p><strong>Solcata invests worldwide in strategically located infrastructure to streamline commodity supply chains and make trading more efficient.</strong> If infra&shy;structure is there already we invest to improve it. Where it doesn’t exist we build it ourselves.</p>
+									<p>And we have a long-term perspective. We act as part&shy;ner to nations, corporations and communities.</p>
+								</div>
+							</div>
+							<div class="item">
+								<div class="company__body">
+									<p><strong>Solcata invests worldwide in strategically located infrastructure to streamline commodity supply chains and make trading more efficient.</strong> If infra&shy;structure is there already we invest to improve it. Where it doesn’t exist we build it ourselves.</p>
+									<p>And we have a long-term perspective. We act as part&shy;ner to nations, corporations and communities.</p>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<script>
 				$(function(){
+					initPunch();
 					swiperIndex();
 				});
 			</script>
@@ -95,7 +131,7 @@
 		<div class="page-navigation_container">
 			<div class="pager">
 				<a id="pager-top" href="/" class="pager__item pager__item-top ajaxtrigger"></a>
-				<a id="pager-bottom" href="/company/" class="pager__item pager__item-bottom ajaxtrigger"></a>
+				<a id="pager-bottom" href="/" class="pager__item pager__item-bottom ajaxtrigger inactive"></a>
 			</div>
 		</div>
 	</div>

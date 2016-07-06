@@ -333,7 +333,7 @@ a {
 	transition: opacity 0.3s linear 0.3s;
 	&.complete {
 		opacity: 1;
-		transition: opacity 0.5s linear 0s;
+		transition: opacity 0.3s linear 0s;
 		.rotator {
 			.rotator-video, .rotator-image {
 				&::after {
@@ -401,6 +401,7 @@ a {
 		width: 46.875%;
 		position: relative;
 		height: 100%;
+		padding: 10% 0 0;
 	}
 	.rotator-image {
 		right: 0;
@@ -419,10 +420,20 @@ a {
 			background-color: $beige;
 			z-index: 15;
 		}
-		.rotator-video_item {
+		.rotator-image_item {
 			width: 100%;
 			height: 100%;
 			background-size: cover;
+			img {
+				transform: scale(1.2) translateX(130px);
+				transition: transform 7s linear 0s;
+
+			}
+			&.swiper-slide-active {
+				img {
+					transform: scale(1) translate(0px);
+				}
+			}
 		}
 		.swiper-container {
 			width: 100%;
@@ -523,5 +534,87 @@ video {
 		width: 50px;
 		height: 50px;
 		background-color: #000
+	}
+}
+.content {
+	.title {
+		font-family: $Baron;
+		@include x-rem(font-size, 70px);
+		@include x-rem(letter-spacing, 30px);
+		color: $bordeaux;
+		@include x-rem(margin-bottom, 60px);		
+		transform: translateY(50px);
+		opacity: 0;
+		transition: transform 0.5s linear, opacity 0.5s linear;
+	}
+}
+.rotator-company {
+	.punchline {
+		position: relative;
+		top: 0;
+		@include clearfix;
+	}
+	.punchline-top {
+		transform: translateY(-50px);
+		opacity: 0;
+		transition: transform 0.8s linear 0.4s, opacity 0.8s linear 0.4s;
+	}
+	.punchline-bottom {
+		transform: translateY(-50px);
+		opacity: 0;
+		transition: transform 0.8s linear 0.2s, opacity 0.5s linear 0.2s;
+	}
+	.punchline-rotator {
+		width: 44.5%;
+		@include clearfix;
+		position: relative;
+		&:first-child {
+			width: 35%;
+		}
+		.item {
+			left: 0;
+		}
+	}
+	.company__head {
+		font-family: $GaramondProItalic;
+		@include x-rem(font-size, 42px);
+		@include x-rem( line-height, 48px);
+		color: $orange;
+		padding-left: 50px;
+		position: relative;
+		&::before {
+			content: '—';
+			left: 0;
+			position: absolute;
+			@include x-rem(top, -4px);
+		}
+	}
+	.company__body {
+		p {
+			font-family: $GaramondPro;
+			color: $bordeaux;
+			@include x-rem(font-size, 16px);
+			@include x-rem( line-height, 30px);
+			letter-spacing: 0.9px;
+			&:not(:last-child) {
+				@include x-rem(margin, 0 0 20px 0);
+			}
+		}
+	}
+}
+.pjax.complete {
+	.rotator-company {
+		.punchline-top, .punchline-bottom {
+			opacity: 1;
+			transform: none;
+			trabsition-delay: 0.8s;
+		}
+		.content {
+			.title {
+				opacity: 1;
+				transform: none;
+				trabsition-delay: 0.8s;
+			}
+		}
 	}
 }
