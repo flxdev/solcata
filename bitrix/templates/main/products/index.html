@@ -1,19 +1,19 @@
 <!doctype html>
 <html>
 <head>
-	<title>Index</title>
+	<title>Products</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
-	<link rel="stylesheet" href="css/screen.css">
+	<link rel="stylesheet" href="../css/screen.css">
 	
 	<!--[if lt IE 9]>
 		<script src="js/lib/html5shiv.min.js"></script>
 	<![endif]-->
 	
-	<script src="js/common.js"></script>
+	<script src="../js/common.js"></script>
 </head>
 <body>
 <div class="viewport">
@@ -27,35 +27,30 @@
 	</header>
 	<div class="pjax">
 		<div class="pjax-container" id="container">
-			<div class="rotator">
-				<div class="rotator-video">
-					<div class="swiper-container">
-						<div class="swiper-wrapper">
-							<div class="rotator-video_item swiper-slide" style="" data-video="1">
-								<video muted loop="loop" poster="img/desktop.jpg"><source src="video/1.mp4"  type='video/mp4'></video>
-							</div>
-							<div class="rotator-video_item swiper-slide" style="" data-video="2">
-								<video muted loop="loop" poster="img/desktop.jpg"><source src="video/2.mp4"  type='video/mp4'></video>
-							</div>
-							<div class="rotator-video_item swiper-slide" style="" data-video="3">
-								<video muted loop="loop" poster="img/desktop.jpg"><source src="video/3.mp4"  type='video/mp4'></video>
+			<div class="container container-products">
+				<div class="products-columns products-left">
+					<div class="content">
+						<div class="title">products</div>
+					</div>
+					<div class="punchline">
+						<div class="punchline-single">
+							<div class="products__body">
+								<p><strong>We use market knowledge, logistics and global re&shy;sources to move physical commodities where they’re needed when they’re needed.</strong> We develop markets, invest in infrastructure, build bridges and cement alliances to reduce the cost of <i>trading</i> and increase service levels. As one of the world's largest independent commodity trading houses Solcata is at the forefront of our industry. </p>
 							</div>
 						</div>
 					</div>
-					<div class="pagination"></div>
 				</div>
-				<div class="punchline">
-					<div class="punchline-action">
-						We <div class="punchline-top punchline-rotator"><div class="item">provide</div><div class="item">supply</div><div class="item">insure</div></div> <br> <div class="punchline-bottom punchline-rotator"><div class="item">commodities</div><div class="item">oil & petroleum</div><div class="item">iron ore</div></div><br> to the world
+				<div class="products-columns products-right">
+					<div class="image-cover">
+						<img src="../img/products/p-1.jpg" alt="">
+					</div>
+					<div class="products-navi">
+						<a href="/products/oil-petroleum/" class="progucts-navi_item ajaxtrigger">oil & petroleum</a>
+						<a href="/products/iron-ore/" class="progucts-navi_item ajaxtrigger">Iron ore</a>
+						<a href="/products/sugar/" class="progucts-navi_item ajaxtrigger">Sugar</a>
 					</div>
 				</div>
 			</div>
-			<script>
-				$(function(){
-					initPunch();
-					swiperIndex();
-				});
-			</script>
 		</div>
 	</div>
 	<footer class="footer">
@@ -77,14 +72,14 @@
 			<span></span>
 		</div>
 	</div>
-	<nav class="navigation-area" id="index-nav">
+	<nav class="navigation-area">
 		<div class="navigation-content">
 			<div class="navigation-layer">
 				<div class="navigation-numbers"></div>
 				<div class="navigation-list">
-					<a href="/" class="navigation-items active ajaxtrigger"><span>Home</span></a>
+					<a href="/" class="navigation-items ajaxtrigger"><span>Home</span></a>
 					<a href="/company/" class="navigation-items ajaxtrigger"><span>Company</span></a>
-					<a href="/products/" class="navigation-items ajaxtrigger"><span>Products</span></a>
+					<a href="/products/" class="navigation-items active ajaxtrigger"><span>Products</span></a>
 					<a href="#" class="navigation-items ajaxtrigger"><span>Logistics</span></a>
 					<a href="#" class="navigation-items ajaxtrigger"><span>Media center</span></a>
 					<a href="#" class="navigation-items ajaxtrigger"><span>Contact us</span></a>
@@ -95,8 +90,8 @@
 	<div class="page-navigation">
 		<div class="page-navigation_container">
 			<div class="pager">
-				<a id="pager-top" href="" class="pager__item pager__item-top inactive ajaxtrigger"></a>
-				<a id="pager-bottom" href="/company/" class="pager__item pager__item-bottom ajaxtrigger"></a>
+				<a id="pager-top" href="/company/" class="pager__item pager__item-top ajaxtrigger"></a>
+				<a id="pager-bottom" href="/" class="pager__item pager__item-bottom ajaxtrigger inactive"></a>
 			</div>
 		</div>
 	</div>

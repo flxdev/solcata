@@ -2,11 +2,29 @@
 <html>
 <head>
 	<title>Company</title>
-	//= includes/headinner.html
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link rel="stylesheet" href="../css/screen.css">
+	
+	<!--[if lt IE 9]>
+		<script src="js/lib/html5shiv.min.js"></script>
+	<![endif]-->
+	
+	<script src="../js/common.js"></script>
 </head>
 <body>
 <div class="viewport">
-	//= includes/header.html
+	<header class="header">
+		<a href="" class="logo"></a>
+		<div class="language">
+			<a href="" class="language-item active">En</a>
+			<span>—</span>
+			<a href="" class="language-item">Fr</a>
+		</div>
+	</header>
 	<div class="pjax">
 		<div class="pjax-container" id="container">
 			<div class="rotator rotator-company">
@@ -73,7 +91,20 @@
 			</script>
 		</div>
 	</div>
-	//= includes/footer.html
+	<footer class="footer">
+		<div class="developers">
+			<div class="developers-inner">
+				<a href="">Made in <span>Flexmedia</span></a>
+			</div>
+		</div>
+		<div class="requisites">
+			<div class="requisites-inner">
+				<p><strong>Solcata SA</strong></p>
+				<p>Rue Agasse 54, 1208 Geneva, Switzerland</p>
+				<p>+41 76 5838056, <a href="mailto:info@solcata.com">info@solcata.com</a></p>
+			</div>
+		</div>
+	</footer>
 	<div class="navigation">
 		<div class="navigation__trigger">
 			<span></span>
@@ -86,7 +117,7 @@
 				<div class="navigation-list">
 					<a href="/" class="navigation-items ajaxtrigger"><span>Home</span></a>
 					<a href="/company/" class="navigation-items active ajaxtrigger"><span>Company</span></a>
-					<a href="/products/" class="navigation-items ajaxtrigger"><span>Products</span></a>
+					<a href="#" class="navigation-items ajaxtrigger"><span>Products</span></a>
 					<a href="#" class="navigation-items ajaxtrigger"><span>Logistics</span></a>
 					<a href="#" class="navigation-items ajaxtrigger"><span>Media center</span></a>
 					<a href="#" class="navigation-items ajaxtrigger"><span>Contact us</span></a>

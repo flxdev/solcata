@@ -259,27 +259,40 @@ a {
 	z-index: 112;
 	transform: translateY(120%);
 	opacity: 0;
-	transition: opacity 1s linear 0.7s, transform 1s linear 0.7s;
+	transition: opacity 1s linear 0.7s, transform 1s linear 0.7s, visibility 1s ease 0.7s;
+	visibility: visible;
 	z-index: 15;
-	.pager {
+	&.hidden {
+		opacity: 0!important;
+		visibility: hidden;
+		transition: opacity 1s linear 0s, transform 1s linear 0s, visibility 1s ease 0s;
 		.pager__item {
-			@include x-rem(width, 45px);
-			@include x-rem(height, 45px);
-			display: block;
-			margin: 5px 0;
-			transition: opacity 0.3s ease;
-			&.pager__item-top {
-				background-image: url(../img/svg/ChevronUpCircle.svg);
-			}
-			&.pager__item-bottom {
-				background-image: url(../img/svg/ChevronDownCircle.svg);
-			}
-			&.inactive {
-				opacity: 0.3;
-				user-select: none;
-				pointer-events: none;
-			}
+			pointer-events: none;
 		}
+	}
+}
+.pager__item {
+	@include x-rem(width, 45px);
+	@include x-rem(height, 45px);
+	display: block;
+	margin: 5px 0;
+	transition: opacity 0.3s ease;
+	&.pager__item-top {
+		background-image: url(../img/svg/ChevronUpCircle.svg);
+		background-repeat: no-repeat;
+	}
+	&.pager__item-bottom {
+		background-image: url(../img/svg/ChevronDownCircle.svg);
+		background-repeat: no-repeat;
+	}
+	&.pager__item-left {
+		background-image: url(../img/svg/ChevronLeftCircle.svg);
+		background-repeat: no-repeat;
+	}
+	&.inactive {
+		opacity: 0.3;
+		user-select: none;
+		pointer-events: none;
 	}
 }
 .requisites {
@@ -331,11 +344,13 @@ a {
 	height: 100%;
 	opacity: 0;
 	transition: opacity 0.3s linear 0.3s;
-	&.complete {
+	&.visible {
 		opacity: 1;
 		transition: opacity 0.3s linear 0s;
+	}
+	&.complete {
 		.rotator {
-			.rotator-video, .rotator-image {
+			.rotator-video, .rotator-image, .rotator-image_single {
 				&::after {
 					width: 0;
 				}
@@ -416,7 +431,7 @@ a {
 		height: 100%;
 		padding: 10% 0 0;
 	}
-	.rotator-image {
+	.rotator-image, .rotator-image_single {
 		right: 0;
 		height: 100%;
 		position: absolute;
@@ -556,9 +571,9 @@ video {
 }
 .content {
 	.title {
-		font-family: $Baron;
+		font-family: $BaronBlack;
 		@include x-rem(font-size, 70px);
-		@include x-rem(letter-spacing, 30px);
+		@include x-rem(letter-spacing, 25px);
 		color: $bordeaux;
 		@include x-rem(margin-bottom, 60px);		
 		transform: translateY(50px);
@@ -583,11 +598,12 @@ video {
 		transition: transform 0.8s linear 0.2s, opacity 0.5s linear 0.2s;
 	}
 	.punchline-rotator {
+		@include clearfix;
 		width: 44.5%;
 		@include clearfix;
 		position: relative;
 		&:first-child {
-			width: 35%;
+			width: 33%;
 		}
 		.item {
 			left: 0;
@@ -607,16 +623,21 @@ video {
 			@include x-rem(top, -4px);
 		}
 	}
-	.company__body {
-		p {
-			font-family: $GaramondPro;
-			color: $bordeaux;
-			@include x-rem(font-size, 16px);
-			@include x-rem( line-height, 30px);
-			letter-spacing: 0.9px;
-			&:not(:last-child) {
-				@include x-rem(margin, 0 0 20px 0);
-			}
+}
+.company__body, .products__body {
+	p {
+		font-family: $GaramondPro;
+		color: $bordeaux;
+		@include x-rem(font-size, 16px);
+		@include x-rem( line-height, 30px);
+		letter-spacing: 0.9px;
+		&:not(:last-child) {
+			@include x-rem(margin, 0 0 20px 0);
+		}
+		i {
+			font-family: $GaramondProItalic;
+			font-style: normal;
+			color: $red;
 		}
 	}
 }
@@ -627,12 +648,150 @@ video {
 			transform: none;
 			trabsition-delay: 0.8s;
 		}
-		.content {
-			.title {
-				opacity: 1;
-				transform: none;
-				trabsition-delay: 0.8s;
+	}
+	.content {
+		.title {
+			opacity: 1;
+			transform: none;
+			trabsition-delay: 0.8s;
+		}
+	}
+}
+.container-products {
+	@include clearfix;
+	height: 100%;
+}
+.products-columns {
+	width: 50%;
+	float: left;
+	height: 100%;
+	position: relative;
+	&.products-left {
+		padding: 10% 0 0;
+	}
+	.punchline {
+		width: 100%;
+		position: relative;
+		top: 0;
+		.punchline-single {
+			width: 40%;
+			margin-left: 31.5%;
+		}
+	}
+	.image-cover {
+		@include x-rem(max-width, 710px);
+		position: absolute;
+		right: 0;
+		&::after {
+			content: '';
+			width: 40%;
+			transition: width .7s linear;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: $beige;
+			z-index: 15;
+		}
+		img {
+			width: 100%;
+			max-height: none;
+			object-fit: cover;
+		}
+	}
+	.products-navi {
+		position: absolute;
+		top: 35%;
+		left: 1%;
+		z-index: 16;
+		.progucts-navi_item {
+			font-family: $Baron;
+			@include x-rem(font-size, 28px);
+			display: block;
+			color: $bordeaux;
+			@include x-rem(padding, 15px 0);
+			@include x-rem(letter-spacing, 18.9px);
+			transform: translate(50px, 0);
+			opacity: 0;
+			transition: color 0.7s linear, transform 0.7s linear, opacity 0.7s linear;
+			&:nth-child(2) {
+				transition-delay: 0.3s;
 			}
+			&:nth-child(3) {
+				transition-delay: 0.6s;
+			}
+		}
+	}
+}
+.image-cover {
+	width: 100%;
+	overflow: hidden;
+	height: 100%;
+	img {
+		max-height: 100%;
+	}
+}
+.pjax.complete {
+	.image-cover {
+		&::after {
+			width: 0;
+		}
+	}
+	.products-navi {
+		.progucts-navi_item {
+			transform: none;
+			opacity: 1;
+		}
+	}
+}
+.products-inner {
+	.punchline {
+		position: relative;
+		top: 0;
+	}
+	.punchline-single_columns {
+		width: 34%;
+		float: left;
+		&:nth-child(2) {
+			width: 43%;
+		}
+		.characteristics {
+			padding: 0 30% 0 20%;
+		}
+	}
+	.btn-back {
+		position: absolute;
+		@include x-rem(bottom, 25px);
+		left: 0;
+		.pager__item {
+			@include x-rem(padding, 12px 0 0 60px);
+			display: inline-block;
+			width: auto;
+			span {
+				font-family: $Baron;
+				color: $bordeaux;
+				@include x-rem(font-size, 14px);
+				@include x-rem(letter-spacing, 7px);
+			}
+		}
+	}
+}
+.characteristics {
+	margin-top: 5px;
+	.characteristics-item {
+		@include x-rem(margin, 0 0 20px 0);
+		.characteristics-item_name {
+			font-family: $GaramondProBold;
+			color: $bordeaux;
+			@include x-rem(font-size, 16px);
+			@include x-rem(margin, 0 0 10px 0);
+		}
+		.characteristics-item_body {
+			font-family: $GaramondPro;
+			color: $bordeaux;
+			@include x-rem(font-size, 16px);
+			@include x-rem(line-height, 30px);
 		}
 	}
 }
