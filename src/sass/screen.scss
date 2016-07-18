@@ -49,9 +49,44 @@ a {
 	text-decoration: none;
 }
 .viewport {
-	@include x-rem(padding, 20px 0 20px 50px);
 	position: relative;
 	height: 100%;
+	&.logistics {
+		.pjax {
+			&::after {
+				opacity: 1;
+			}
+		}
+		.logo {
+			&::after {
+				opacity: 1;
+			}
+		}
+		.language {
+			.language-item, span {
+				color: $white;
+			}
+		}
+		.developers {
+			.developers-inner {
+				a  {
+					color: $white;
+				}
+			}
+		}
+		.requisites {
+			.requisites-inner p {
+				color: $white;
+			}
+		}
+		.pager__item {
+			div {
+				path {
+					fill: $white;
+				}
+			}
+		}
+	}
 }
 .navigation {
 	position: fixed;
@@ -196,6 +231,19 @@ a {
 	opacity: 0;
 	transition: opacity 1s linear;
 	z-index: 15;
+	&::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-image: url(../img/icons/logo-logistics.png);
+		display: inline-block;
+		background-size: cover;
+		opacity: 0;
+		transition: opacity 0.3s linear;
+	}
 }
 .language {
 	position: fixed;
@@ -277,6 +325,13 @@ a {
 	display: block;
 	margin: 5px 0;
 	transition: opacity 0.3s ease;
+	div {
+		display: block;
+		path {
+			fill: $bordeaux;
+			transition: fill 0.3s linear;
+		}
+	}
 	&.pager__item-top {
 		background-image: url(../img/svg/ChevronUpCircle.svg);
 		background-repeat: no-repeat;
@@ -339,18 +394,33 @@ a {
 	}
 }
 .pjax {
-	position: relative;
+	position: relative;	
+	@include x-rem(padding, 20px 0 20px 50px);
 	width: 100%;
 	height: 100%;
 	opacity: 0;
 	transition: opacity 0.3s linear 0.3s;
+	&::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		width: 100%;
+		left: 0;
+		height: 100%;
+		background-image: url(../img/maps.jpg);
+		background-size: cover;
+		opacity: 0;
+		transition: opacity 0.3s linear;
+		display: inline-block;
+		z-index: -1;
+	}
 	&.visible {
 		opacity: 1;
 		transition: opacity 0.3s linear 0s;
 	}
 	&.complete {
 		.rotator {
-			.rotator-video, .rotator-image, .rotator-image_single {
+			.rotator-video, .rotator-image, .rotator-image_single, .rotator-news_single {
 				&::after {
 					width: 0;
 				}
@@ -381,7 +451,7 @@ a {
 		right: 0;
 		height: 100%;
 		position: absolute;
-		left: 250px;
+		@include x-rem(left, 247px);
 		&::after {
 			content: '';
 			width: 40%;
@@ -657,7 +727,7 @@ video {
 		}
 	}
 }
-.container-products {
+.container-products, .container-logistics {
 	@include clearfix;
 	height: 100%;
 }
@@ -700,27 +770,27 @@ video {
 			object-fit: cover;
 		}
 	}
-	.products-navi {
-		position: absolute;
-		top: 35%;
-		left: 1%;
-		z-index: 16;
-		.progucts-navi_item {
-			font-family: $Baron;
-			@include x-rem(font-size, 28px);
-			display: block;
-			color: $bordeaux;
-			@include x-rem(padding, 15px 0);
-			@include x-rem(letter-spacing, 18.9px);
-			transform: translate(50px, 0);
-			opacity: 0;
-			transition: color 0.7s linear, transform 0.7s linear, opacity 0.7s linear;
-			&:nth-child(2) {
-				transition-delay: 0.3s;
-			}
-			&:nth-child(3) {
-				transition-delay: 0.6s;
-			}
+}
+.products-navi {
+	position: absolute;
+	top: 35%;
+	left: 1%;
+	z-index: 16;
+	.progucts-navi_item {
+		font-family: $Baron;
+		@include x-rem(font-size, 28px);
+		display: block;
+		color: $bordeaux;
+		@include x-rem(padding, 15px 0);
+		@include x-rem(letter-spacing, 18.9px);
+		transform: translate(50px, 0);
+		opacity: 0;
+		transition: color 0.7s linear, transform 0.7s linear, opacity 0.7s linear;
+		&:nth-child(2) {
+			transition-delay: 0.3s;
+		}
+		&:nth-child(3) {
+			transition-delay: 0.6s;
 		}
 	}
 }
@@ -792,6 +862,246 @@ video {
 			color: $bordeaux;
 			@include x-rem(font-size, 16px);
 			@include x-rem(line-height, 30px);
+		}
+	}
+}
+.columns {
+	width: 50%;
+	float: left;
+	height: 100%;
+}
+.container-logistics {
+	.columns {
+		&:first-of-type {
+			padding-top: 10%;
+		}
+	}
+	.content {
+		.title {
+			color: $orange;
+		}
+	}
+	.punchline {
+		position: relative;
+		top: 0;
+	}
+	.punchline-single_columns {
+		width: 34%;
+		float: left;
+		&:nth-child(2) {
+			width: 43%;
+		}
+		.characteristics {
+			padding: 0 30% 0 20%;
+		}
+	}
+	.products__head {
+		font-family: $GaramondProItalic;
+		@include x-rem(font-size, 42px);
+		color: $white;
+		@include x-rem(padding, 0 15px 0 50px);
+		position: relative;
+		&::before {
+			content: '—';
+			left: 0;
+			position: absolute;
+			@include x-rem(top, -4px);
+		}
+	}
+	.products__body {
+		p {
+			color: $white;
+		}
+	}
+}
+
+.container-media {
+	@include clearfix;
+	height: 100%;
+	.columns {
+		&:first-of-type {
+			padding-top: 10%;
+		}
+	}
+	.columns {
+		width: 50%;
+		float: left;
+		&:last-child {
+			width: 50%;
+		}
+	}
+	.punchline {
+		width: 100%;
+		position: relative;
+		top: 0;
+		.punchline-single {
+			margin-left: 31.5%;
+		}
+	}
+	.products-navi {
+		position: relative;
+		top: 0;
+		left: 0;
+	}
+	.image-cover {
+		@include x-rem(max-width, 710px);
+		position: absolute;
+		right: 0;
+		&::after {
+			content: '';
+			width: 40%;
+			transition: width .7s linear;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: $beige;
+			z-index: 15;
+		}
+		img {
+			width: 100%;
+			max-height: none;
+			object-fit: cover;
+		}
+	}
+}
+.container-news {
+	@include clearfix;
+	height: 100%;
+	.columns {
+		&:first-of-type {
+			padding-top: 10%;
+		}
+	}
+	.columns {
+		width: 50%;
+		float: left;
+		&:last-child {
+			width: 50%;
+		}
+	}
+	.punchline {
+		width: 100%;
+		position: relative;
+		top: 0;
+		.punchline-single {
+			width: 30%;
+			margin-left: 34%;
+		}
+	}
+}
+.navi-category {
+	ul {
+		font-size: 0;
+		li {
+			display: inline-block;
+			width: 50%;
+			a {
+				font-family: $GaramondPro;
+				@include x-rem(font-size, 16px);
+				color: $bordeaux;
+				@include x-rem(padding, 10px 0);
+				display: block;
+				&.active {
+					font-family: $GaramondProBold;
+				}
+			}
+		}
+	}
+}
+.rotator-news_single {
+	right: 0;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	background-image: url(../img/news/news.jpg);
+	background-size: cover;
+	background-position: 100% 100%;
+	&::after {
+		content: '';
+		width: 40%;
+		transition: width 0.7s linear;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: $beige;
+		z-index: 15;
+	}
+	.rotator-image_item {
+		width: 100%;
+		height: 100%;
+		background-size: cover;
+		img {
+			transform: scale(1.2) translateX(130px);
+			transition: transform 7s linear 0s;
+			max-width: 105%;
+			position: absolute;
+			bottom: 0;
+			right: 0;
+
+		}
+		&.swiper-slide-active {
+			img {
+				transform: scale(1) translate(0px);
+			}
+		}
+	}
+	.swiper-container {
+		width: 100%;
+		height: 100%;
+	}
+	.pagination {
+		@include x-rem(bottom, 20px);
+		left: 6%;
+		z-index: 15;
+
+	}
+	.swiper-pagination-bullet {
+		opacity: 1;
+	}
+}
+.news {
+	padding: 21%;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	.news-item {
+		display: inline-block;
+		width: 100%;
+		&:not(:last-child) {
+			@include x-rem(margin, 0 0 72px 0);
+		}
+		data {
+			font-family: $GaramondPro;
+			@include x-rem(font-size, 16px);
+			color: $bordeaux;
+		}
+		a {
+			font-family: $GaramondProItalic;
+			@include x-rem(font-size, 42px);
+			color: $bordeaux;
+			display: inline-block;
+			width: 100%;
+		}
+	}
+}
+.container-careers {
+	.rotator-news_single {
+		background-image: url(../img/careers/careers.jpg);
+		background-size: cover;
+		background-position: 100% 100%;
+		background-repeat: no-repeat;
+	}
+	.punchline {
+		width: 100%;
+		position: relative;
+		top: 0;
+		.punchline-single {
+			width: 41.5%;
+			margin-left: 33.5%;
 		}
 	}
 }

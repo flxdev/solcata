@@ -76,9 +76,10 @@ function menuNumbers(){
 	numbersItem.parent().on('mouseleave', function(){
 		var _ = $(this),
 			index = _.find('.active').index();
-			if(index === -1) {
-				index = 0;
-			}
+
+		if(index === -1) {
+			index = 0;
+		}
 		numbers.children().eq(index).addClass('visible').siblings().removeClass('visible');
 	});
 
@@ -98,7 +99,7 @@ function menuNumbers(){
 
 			.set(content, {width: '0', delay: 0.5})
 			.set(trigger, {className: '-=open'})
-
+			
 		event.preventDefault();
 
 	});
@@ -181,6 +182,22 @@ function swiperIndex(){
 			}
 		};
 
+		var imagesSettingsNews = {
+			pagination: '.rotator .pagination',
+			paginationClickable: true,
+			speed: 1200,
+			loop: false,
+			noSwiping: false,
+			runCallbacksOnInit: false,
+			parallax: true,
+			onInit: function(swiper) {
+				createShadow();
+			},
+			onSlideChangeStart: function(swiper, event){
+				bulletsShadow();
+			}
+		};
+
 		if(typeof $('.rotator-video') == 'object' && $('.rotator-video').length > 0) {
 			if(typeof swiperVideo == 'object') {
 				swiperVideo.destroy();
@@ -209,11 +226,18 @@ function swiperIndex(){
 			},10)
 			
 		};
-		
 
-		if($('.rotator .pagination span').length === 1) {
-			$('.rotator .pagination').css('display', 'none');
-		}
+		if(typeof $('.rotator-news_single') == 'object' && $('.rotator-news_single').length > 0) {
+			if(typeof swiperVideo == 'object') {
+				swiperVideo.destroy();
+			}
+			setTimeout(function(){
+				swiperVideo = new Swiper(gRotator, imagesSettingsNews);
+			},10)
+			
+		};
+		
+		
 		function bulletsShadow() {
 			if($('.swiper-pagination-bullet-active').length) {
 				var left = $('.swiper-pagination-bullet-active').position().left;
@@ -222,6 +246,9 @@ function swiperIndex(){
 		};
 
 		function createShadow() {
+			if($('.rotator .swiper-pagination-bullet').length === 1) {
+				$('.rotator .pagination').css('display', 'none');
+			}	
 			$('.pagination').append('<div class="shadow"></div>')
 		};
 	};
@@ -313,20 +340,25 @@ $(document).ready(function () {
 			dataType:"html",
 			beforeSend: function(){
 				$('.pjax').addClass('loading').removeClass('visible');
-				//setTimeout(function(){
-					$('.pjax').removeClass('complete')
-				//},1000);
+				$('.pjax').removeClass('complete');
+				$('.viewport').removeClass('logistics');
 			},
 			success: function(b){
 				var h = $(b).find('#container');
 				window.history.replaceState("page" + link, link, link);
-				setTimeout( function(){	
+				setTimeout( function(){
+					
 					$('.pjax').html(h);
 					replaceNav(h);
 					replaceAttr(b);
 					
 					setTimeout(function(){
 						$('.pjax').removeClass('loading').addClass('complete visible');
+						if(h.data('logistics')) {
+							$('.viewport').addClass('logistics');
+						} else {
+							$('.viewport').removeClass('logistics');
+						}
 					}, 1000);
 					setTimeout(function(){
 						$('.viewport').removeClass('return');
@@ -337,7 +369,6 @@ $(document).ready(function () {
 	};
 
 	$('body').on('click','.ajaxtrigger', function(event){
-		console.log(true)
 		loadProject($(this).attr('href'));
 
 		event.preventDefault();
@@ -351,7 +382,10 @@ $(document).ready(function () {
 			}, 300)
 		} else {
 			$('.page-navigation').removeClass('hidden');
-			$('.page-navigation').find('.pager__item').removeClass('inactive');
+			if(!$('.page-navigation').find('.pager__item').attr('href') === ''){
+				$('.page-navigation').find('.pager__item').removeClass('inactive');
+			}
+			
 		}
 	} replaceNav($('#container'))
 
@@ -386,6 +420,8 @@ $(document).ready(function () {
 
 				if(id === 'pager-top') {
 					_.animTop($('#' + id));
+				} else if(id === 'pager-left') {
+					_.animLeft($('#' + id));
 				} else {
 					_.animBottom($('#' + id));
 				}
@@ -411,6 +447,15 @@ $(document).ready(function () {
 				.set(_, {y: 0})
 				.to(_, 0.2, {y: '10px', ease:Circ.easeOut}, 0)
 				.to(_, 0.2, {y: 0, delay: 0.2, ease:Circ.easeOut})
+		}
+		_.animLeft = function(){
+			var _ = item,
+				tl = new TimelineLite();
+
+			tl
+				.set(_, {y: 0})
+				.to(_, 0.2, {x: '-10px', ease:Circ.easeOut}, 0)
+				.to(_, 0.2, {x: 0, delay: 0.2, ease:Circ.easeOut})
 		}
 		_.init();
 	};
