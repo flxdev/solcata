@@ -399,6 +399,7 @@ $(document).ready(function () {
 			},
 			success: function(b){
 				var h = $(b).find('#container');
+				window.history.pushState("page" + link, link, link);
 				window.history.replaceState("page" + link, link, link);
 				setTimeout( function(){
 					
@@ -426,6 +427,15 @@ $(document).ready(function () {
 			}
 		});
 	};
+	$(window).bind("popstate", function(e) {
+		var state = e.originalEvent.state;
+
+		if(state) {
+		    location.reload();
+		} else {
+		    alert('initial state');
+		}
+	});
 
 	$('body').on('click','.ajaxtrigger', function(event){
 		loadProject($(this).attr('href'));
