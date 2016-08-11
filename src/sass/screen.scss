@@ -109,40 +109,54 @@ a {
 	z-index: 110;
 	opacity: 0;
 	transition: opacity 1s linear;
+	background-color: $bordeaux;
 	.navigation__trigger {
-		background-color: $bordeaux;
 		width: 100%;
 		height: 100%;
+		padding: 15px 10px;
 		cursor: pointer;
 		position: relative;
 		text-align: center;
+		div {
+			display: block;
+			position: relative;
+			width: 30px;
+			height: 22px;
+		}
 		span {
 			height: 2px;
-			width: 30px;
-			display: inline-block;
+			width: 100%;
+			display: block;
 			background-color: $white;
-			vertical-align: middle;
 			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%);
-			&::after {
-				position: absolute;
-				content: '';
-				width: 100%;
-				left: 0;
-				background-color: $white;
-				height: 2px;
-				top: -10px;
+			opacity: 1;
+			left: 0;
+			transform: rotate(0deg);
+			transition: 0.2s ease-in-out;
+			&:nth-child(1) {
+				top: 0;
 			}
-			&::before {
-				position: absolute;
-				content: '';
-				width: 100%;
-				left: 0;
-				background-color: $white;
-				height: 2px;
-				bottom: -10px;
+			&:nth-child(2) {
+				top: 9px;
+			}
+			&:nth-child(3) {
+				top: 18px;
+			}
+		}
+		&.open {
+			span {
+				&:nth-child(1) {
+					transform: rotate(135deg);
+					top: 9px;
+				}
+				&:nth-child(2) {
+					opacity: 0;
+					left: -60px;
+				}
+				&:nth-child(3) {
+					transform: rotate(-135deg);
+					top: 9px;
+				}
 			}
 		}
 	}
@@ -793,9 +807,13 @@ video {
 			z-index: 15;
 		}
 		img {
-			width: 100%;
 			max-height: none;
 			object-fit: cover;
+			position: absolute;
+			max-width: 120%;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%,-50%);
 		}
 	}
 }
@@ -967,6 +985,7 @@ video {
 	.columns {
 		width: 50%;
 		float: left;
+		position: relative;
 		&:last-child {
 			width: 50%;
 		}
@@ -988,6 +1007,9 @@ video {
 		@include x-rem(max-width, 710px);
 		position: absolute;
 		right: 0;
+		@include r(1399) {
+			max-width: 90%;
+		}
 		&::after {
 			content: '';
 			width: 40%;
@@ -1001,9 +1023,13 @@ video {
 			z-index: 15;
 		}
 		img {
-			width: 100%;
 			max-height: none;
 			object-fit: cover;
+			position: absolute;
+			max-width: 120%;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%,-50%);
 		}
 	}
 }
@@ -1280,14 +1306,25 @@ video {
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-		padding-top: 130px;
 		text-align: center;
 		a {
 			line-height: 19px;
 			font-size: 13px;
 			font-family: $Baron;
 			text-transform: lowercase;
-			color: $white;
+			color: $white;			
+			padding-top: 100px;
+			position: relative;
+			&::after {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 50%;
+				background-image: url(../img/svg/imac.svg);
+				width: 111px;
+				height: 87px;
+				transform: translate(-12%);
+			}
 		}
 	}
 }

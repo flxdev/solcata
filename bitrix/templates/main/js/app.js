@@ -326,7 +326,6 @@ function slideText(textOut, textIn, delay) {
 	// }
 };
 
-
 var map;
 function initialize() {
 	var stylez = [{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#444444"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2f2f2"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":-100},{"lightness":45}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#dde6e8"},{"visibility":"on"}]}];
@@ -359,15 +358,27 @@ function initialize() {
 }
 google.maps.event.addDomListener(window, 'load', initialize);
 
-
-google.maps.event.addDomListener(window, "resize", function() {
-	var center = map.getCenter();
-	google.maps.event.trigger(map, "resize");
-	map.setCenter(center); 
-});
-
-
-
+if(document.getElementById('maps')){
+	google.maps.event.addDomListener(window, "resize", function() {
+		var center = map.getCenter();
+		google.maps.event.trigger(map, "resize");
+		map.setCenter(center); 
+	});
+}
+function cycleRotator() {
+	$('.cycle').slick({
+		autoplay: true,
+		slidesToShow: 10,
+		slidesToScroll: 1,
+		autoplaySpeed: !0,
+		arrows: false,
+		speed: 3500, 
+		infinite: true,
+		cssEase: 'linear',
+		vertical: true,
+		adaptiveHeight: true
+	});
+}
 $(document).ready(function () {
 	function Direction() {
 		$('.viewport').mousewheel(function(event) {
@@ -427,14 +438,11 @@ $(document).ready(function () {
 			}
 		});
 	};
+	
 	$(window).bind("popstate", function(e) {
-		var state = e.originalEvent.state;
+		var newPageArray = location.pathname;
 
-		if(state) {
-		    location.reload();
-		} else {
-		    alert('initial state');
-		}
+		loadProject(newPageArray)
 	});
 
 	$('body').on('click','.ajaxtrigger', function(event){
@@ -535,17 +543,4 @@ $(document).ready(function () {
 
 	var trigger = $('.pager__item');
 	trigger = new naviTrigger(trigger);
-	
-	$('.cycle').slick({
-		autoplay: true,
-		slidesToShow: 10,
-		slidesToScroll: 1,
-		autoplaySpeed: !0,
-		arrows: false,
-		speed: 3500, 
-		infinite: true,
-		cssEase: 'linear',
-		vertical: true,
-		adaptiveHeight: true
-	})
 })
