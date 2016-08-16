@@ -1,0 +1,33 @@
+@include font-face('baronneueblackitalic', "../fonts/baronneueblackitalic-webfont" ,null, null, ttf eot woff2 woff svg);
+@include font-face('baronneueblack', "../fonts/baronneueblack-webfont" ,null, null, ttf eot woff2 woff svg);
+@include font-face('baronneuebolditalic', "../fonts/baronneuebolditalic-webfont" ,null, null, ttf eot woff2 woff svg);
+@include font-face('baronneuebold', "../fonts/baronneuebold-webfont" ,null, null, ttf eot woff2 woff svg);
+@include font-face('baronneueitalic', "../fonts/baronneueitalic-webfont" ,null, null, ttf eot woff2 woff svg);
+@include font-face('baronneue', "../fonts/baronneue-webfont" ,null, null, ttf eot woff2 woff svg);
+@include font-face('GaramondProItalic', "../fonts/AGaramondPro-Italic" ,null, null, ttf eot woff2 woff svg);
+@include font-face('AGaramondProBold', "../fonts/AGaramondPro-Bold" ,null, null, ttf eot woff2 woff svg);
+@include font-face('AGaramondProBoldItalic', "../fonts/AGaramondPro-BoldItalic" ,null, null, ttf eot woff2 woff svg);
+@include font-face('AGaramondPro', "../fonts/AGaramondPro-Regular" ,null, null, ttf eot woff2 woff svg);
+
+
+
+$Baron: 'baronneue', $font-stack-helvetica;
+$BaronItalic: 'baronneueitalic', $font-stack-helvetica;
+$BaronBold: 'baronneuebold', $font-stack-helvetica;
+$BaronBoldItalic: 'baronneuebolditalic', $font-stack-helvetica;
+$BaronBlack: 'baronneueblack', $font-stack-helvetica;
+$BaronBlackItalic: 'baronneueblackitalic', $font-stack-helvetica;
+$GaramondProItalic: 'GaramondProItalic', $font-stack-helvetica;
+$GaramondProBold: 'AGaramondProBold', $font-stack-helvetica;
+$GaramondProBoldItalic: 'AGaramondProBoldItalic', $font-stack-helvetica;
+$GaramondPro: 'AGaramondPro', $font-stack-helvetica;
+
+$beige: #fff9e4;
+$bordeaux: #771d1a;
+$white: #ffffff;
+$yellow: #ffe073;
+$number: #f5efda;
+$orange: #e77c13;
+$red: #cb282a;
+
+$bizer: cubic-bezier(.48,.01,.7,.21);
