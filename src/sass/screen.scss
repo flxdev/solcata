@@ -1146,12 +1146,32 @@ video {
 			@include x-rem(font-size, 16px);
 			color: $bordeaux;
 		}
-		a {
+		a, span {
 			font-family: $GaramondProItalic;
 			@include x-rem(font-size, 42px);
 			color: $bordeaux;
 			display: inline-block;
 			width: 100%;
+			cursor: pointer;
+		}
+	}
+	.head {
+		span {
+			transition: transform 0.3s ease-in-out;
+		}
+		&.open {
+			span {
+				transform: scale(0.7) translate(-21%);
+			}
+		}
+	}
+	.container {
+		display: none;
+		p {
+			font-family: $GaramondPro;
+			color: $bordeaux;
+			@include x-rem(font-size, 16px);
+			@include x-rem(line-height, 27px);
 		}
 	}
 }
