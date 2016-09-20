@@ -5779,7 +5779,7 @@ function swiperIndex(){
 			setTimeout(function(){
 				swiperVideo = new Swiper(gRotator, imagesSettingsSingle);
 				$(".rotator-image_item").on("click", function(){
-					swiperVideo.slideNext(false, 1200);
+					swiperVideo.slideNext(true, 1200);
 				})
 			},10)
 			$(window).on('resize', function(){
@@ -6320,7 +6320,7 @@ stepForm.prototype._initEvents = function(){
 		}, 300);
 	});
 
-	firstEL.on("keydown", function(ev){
+	$(this.el).on("keydown", function(ev){
 		var codeKey = ev.keyCode;
 
 		if(codeKey === 13) {
@@ -6610,7 +6610,7 @@ $(document).ready(function () {
 								}, 600);								
 								setTimeout(function(){
 									$('.pjax').removeClass('loading').addClass('complete visible');
-									if(h.data('logistics')) {
+									if(h.data('pages') == "logistics") {
 										$('.viewport').addClass('logistics');
 									} else {
 										$('.viewport').removeClass('logistics');
