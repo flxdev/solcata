@@ -7,7 +7,10 @@
 //= lib/TimelineLite.min.js
 //= lib/CSSPlugin.min.js
 //= lib/jquery.mousewheel.min.js
-//= lib/barba.min.js
+//= lib/svg.js
+//= lib/svg.path.js
+//= lib/underscore.js
+//= lib/modernizr.js
 
 
 //= app.js

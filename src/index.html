@@ -13,14 +13,11 @@
 				<div class="rotator-video">
 					<div class="swiper-container">
 						<div class="swiper-wrapper">
-							<div class="rotator-video_item swiper-slide" style="" data-video="1">
-								<video muted loop="loop" poster="img/desktop.jpg"><source src="video/1.mp4"  type='video/mp4'></video>
+							<div class="rotator-video_item swiper-slide" style="" data-video="1" data-videos="https://res.cloudinary.com/socialmanage/video/upload/v1470901441/threesixty-video-loop_bjiubl.mp4" data-poster="img/desktop.jpg">
 							</div>
-							<div class="rotator-video_item swiper-slide" style="" data-video="2">
-								<video muted loop="loop" poster="img/desktop.jpg"><source src="video/2.mp4"  type='video/mp4'></video>
+							<div class="rotator-video_item swiper-slide" style="" data-video="2" data-videos="https://res.cloudinary.com/socialmanage/video/upload/v1470901441/threesixty-video-loop_bjiubl.mp4" data-poster="img/desktop.jpg">
 							</div>
-							<div class="rotator-video_item swiper-slide" style="" data-video="3">
-								<video muted loop="loop" poster="img/desktop.jpg"><source src="video/3.mp4"  type='video/mp4'></video>
+							<div class="rotator-video_item swiper-slide" style="" data-video="3" data-videos="https://res.cloudinary.com/socialmanage/video/upload/v1470901441/threesixty-video-loop_bjiubl.mp4" data-poster="img/desktop.jpg">
 							</div>
 						</div>
 					</div>
@@ -34,8 +31,11 @@
 			</div>
 			<script>
 				$(function(){
-					initPunch();
-					swiperIndex();
+					window.onload = function(){
+						videoInit();
+						initPunch();
+						swiperIndex();
+					};
 				});
 			</script>
 		</div>
@@ -68,19 +68,24 @@
 	<div class="page-navigation">
 		<div class="page-navigation_container">
 			<div class="pager">
-				<a id="pager-top" href="/" class="pager__item pager__item-top inactive ajaxtrigger">
+				<a id="pager-top" href="/" class="pager__item pager__item-top ajaxtrigger inactive">
 					<div>
-						<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16,0C7.163,0,0,7.164,0,16c0,8.837,7.163,16,16,16c8.836,0,16-7.163,16-16C32,7.164,24.836,0,16,0z M16,30   C8.28,30,1.969,23.72,1.969,16C1.969,8.28,8.28,2,16,2c7.72,0,14,6.28,14,14C30,23.72,23.72,30,16,30z"/><path d="M16.699,11.293c-0.384-0.38-1.044-0.381-1.429,0l-6.999,6.899c-0.394,0.391-0.394,1.024,0,1.414   c0.395,0.391,1.034,0.391,1.429,0l6.285-6.195l6.285,6.196c0.394,0.391,1.034,0.391,1.429,0c0.394-0.391,0.394-1.024,0-1.414   L16.699,11.293z"/></svg>
+						<svg viewBox="0 0 503 503" xmlns="http://www.w3.org/2000/svg"><path id="svg_1" d="m258.7,198.5l-104.6,107.8c-3.8,3.9 -10.1,4 -14,0.2l0,0c-3.9,-3.8 -4,-10.1 -0.2,-14l104.5,-107.8c3.8,-3.9 10.1,-4 14,-0.2l0,0c4,3.8 4.1,10.1 0.3,14z"/><path id="svg_2" d="m244.8,198.5l104.5,107.8c3.8,3.9 10.1,4 14,0.2l0,0c3.9,-3.8 4,-10.1 0.2,-14l-104.6,-107.7c-3.8,-3.9 -10.1,-4 -14,-0.2l0,0c-3.8,3.7 -3.9,10 -0.1,13.9z"/><ellipse id="svg_3" ry="238.6" rx="238.1" cy="251.9" cx="251.6" stroke-miterlimit="20" stroke-width="20" fill="none"/></svg>
 					</div>
 				</a>
 				<a id="pager-bottom" href="/company/" class="pager__item pager__item-bottom ajaxtrigger">
 					<div>
-						<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16,0C7.164,0,0,7.163,0,16c0,8.836,7.164,16,16,16c8.837,0,16-7.164,16-16C32,7.163,24.837,0,16,0z M16,30   C8.28,30,2,23.72,2,16C2,8.28,8.28,2,16,2c7.72,0,14.031,6.28,14.031,14C30.031,23.72,23.72,30,16,30z"/><path d="M22.3,12.393l-6.285,6.195l-6.285-6.196c-0.394-0.391-1.034-0.391-1.429,0   c-0.394,0.391-0.394,1.024,0,1.414l6.999,6.9c0.384,0.38,1.044,0.381,1.429,0l6.999-6.899c0.394-0.391,0.394-1.024,0-1.414   C23.334,12.003,22.695,12.003,22.3,12.393z"/></svg>
+						<svg viewBox="0 0 503 503" xmlns="http://www.w3.org/2000/svg"><path d="m244.8,302.5l104.5,-107.8c3.8,-3.9 10.1,-4 14,-0.2l0,0c3.9,3.8 4,10.1 0.2,14l-104.6,107.8c-3.8,3.9 -10.1,4 -14,0.2l0,0c-3.8,-3.8 -3.9,-10.1 -0.1,-14z"/><path d="m258.7,302.5l-104.6,-107.7c-3.8,-3.9 -10.1,-4 -14,-0.2l0,0c-3.9,3.8 -4,10.1 -0.2,14l104.5,107.8c3.8,3.9 10.1,4 14,0.2l0,0c4,-3.9 4.1,-10.2 0.3,-14.1z"/><ellipse ry="238.6" rx="238.1" cy="251.9" cx="251.6" stroke-miterlimit="20" stroke-width="20" fill="none"/></svg>
 					</div>
 				</a>
 			</div>
 		</div>
 	</div>
+</div>
+<div class="loader">
+	<span></span>
+	<span></span>
+	<span></span>
 </div>
 </body>
 </html>
