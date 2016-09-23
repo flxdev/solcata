@@ -1513,36 +1513,42 @@ video {
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background-color: $bordeaux;
+	background-color: $beige;
 	display: none;
 	@include r(992){
 		display: block;
 	}
 	.cap-inner {
-		width: 260px;
+		width: 230px;
 		position: absolute;
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
 		text-align: center;
+		.image {
+			background-image: url(../img/icons/mobile.png);
+			@include x-rem(width, 94px);
+			@include x-rem(height, 184px);
+			display: inline-block;
+			background-size: cover;
+			@include x-rem(margin-bottom, 30px);
+		}
+		p {
+			font-family: $GaramondProItalic;
+			color: $bordeaux;
+			@include x-rem(font-size, 42px);
+			@include x-rem(margin-bottom, 50px);
+		}
 		a {
 			line-height: 19px;
-			font-size: 13px;
-			font-family: $Baron;
-			text-transform: lowercase;
-			color: $white;			
-			padding-top: 100px;
+			@include x-rem(font-size, 16px);
+			font-family: $GaramondProBoldItalic;
+			color: $white;
 			position: relative;
-			&::after {
-				content: '';
-				position: absolute;
-				top: 0;
-				left: 50%;
-				background-image: url(../img/svg/imac.svg);
-				width: 111px;
-				height: 87px;
-				transform: translate(-12%);
-			}
+			background-color: $orange;
+			padding: 8px 25px;
+			border-radius: 20px;
+			letter-spacing: 1.3px;
 		}
 	}
 }

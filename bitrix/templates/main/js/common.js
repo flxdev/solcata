@@ -6603,6 +6603,8 @@ $(document).ready(function () {
 									setTimeout(function(){
 										$('.viewport').removeClass('return');
 									}, 1800);
+									bindMenu();
+									$(window).trigger('load'); 
 								});
 							} else {
 								setTimeout(function(){
