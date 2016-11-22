@@ -11,6 +11,7 @@
 //= lib/svg.path.js
 //= lib/underscore.js
 //= lib/modernizr.js
+//= lib/mobile-detect.min.js
 
 
 //= app.js
